@@ -185,6 +185,14 @@ main{flex:1;min-height:0;position:relative}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .sw{width:2.4rem;height:2.4rem;border-radius:50%;border:3px solid var(--panel-edge);background:var(--c);padding:0}
 .sw[aria-pressed="true"]{border-color:var(--ink);transform:scale(1.12)}
+.wear{flex:none;width:3.8rem;height:3.8rem;border-radius:18px;border:3px solid var(--panel-edge);background:color-mix(in srgb,var(--violet) 14%,var(--paper));padding:.28rem;position:relative;display:grid;place-items:center;cursor:pointer}
+.wear svg{width:100%;height:100%;overflow:visible}
+.wear:hover{border-color:var(--violet)}
+.wear[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent)}
+.wear:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+.wear .lk{position:absolute;right:-.5rem;top:-.6rem;background:var(--panel);border:2px solid var(--panel-edge);border-radius:999px;font-size:.62rem;font-weight:800;padding:0 .28rem;line-height:1.4;white-space:nowrap}
+.opts .grp.items{padding-top:.5rem;gap:.55rem}
+.opts .grp.sub{gap:.3rem}.opts .grp.sub .chip{padding:.22rem .72rem;font-size:.86rem}
 .food{border:2px solid var(--panel-edge);background:var(--paper);border-radius:18px;padding:.25rem .7rem;font-weight:800;display:flex;align-items:center;gap:.35rem}
 .food i{font-style:normal;font-size:1.6rem;line-height:1}
 .tools{display:flex;gap:.35rem;padding:.4rem .5rem .55rem;overflow-x:auto;justify-content:safe center}
@@ -416,6 +424,12 @@ main{flex:1;min-height:0;position:relative}
     <linearGradient id="gWing" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#cfeaff"/><stop offset="1" stop-color="#e3c8ff"/>
     </linearGradient>
+    <pattern id="pDots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.8" fill="#fff"/><circle cx="7.5" cy="7.5" r="1.8" fill="#fff"/></pattern>
+    <pattern id="pStripesW" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="3" fill="#fff"/></pattern>
+    <pattern id="pStripesB" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="3.4" fill="#5fb2ff"/></pattern>
+    <pattern id="pStars" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M4 1L5 3.5L7.5 4.5L5 5.5L4 8L3 5.5L.5 4.5L3 3.5Z" fill="#ffd84d"/><path d="M12 9L12.8 11.2L15 12L12.8 12.8L12 15L11.2 12.8L9 12L11.2 11.2Z" fill="#fff"/></pattern>
+    <pattern id="pCheck" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="4" fill="#fff" opacity=".32"/><rect width="4" height="12" fill="#fff" opacity=".32"/><rect x="8" width="1.3" height="12" fill="#2e2147" opacity=".25"/><rect y="8" width="12" height="1.3" fill="#2e2147" opacity=".25"/></pattern>
+    <pattern id="pSpark" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.2" fill="#fff"/><circle cx="10" cy="10" r="1.6" fill="#ffe36e"/><circle cx="11" cy="3" r=".9" fill="#fff"/></pattern>
     <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" class="s-sky1"/><stop offset=".65" class="s-sky2"/><stop offset="1" class="s-sky3"/>
     </linearGradient>
@@ -604,7 +618,8 @@ ru:{
   'lv.all':'Вся страна расколдована!','lv.valley':'Долина расколдована!','lv.done':'Уровень пройден!','lv.pts':'Очки','lv.stars':'Звёзды',
   'lv.chest':'Сундук найден','lv.noChest':'Сундук остался ненайденным','lv.noLoss':'Ни одной потерянной жизни','lv.lost':'Жизни терялись — третья звезда ждёт',
   'lv.next':'Следующий уровень','lv.over':'Жизни закончились','lv.kept':(p,s)=>`Собранное остаётся у тебя: ${p} 💎 и ${s} ⭐.`,
-  'lv.cpHint':' Флажок пройден — можно продолжить с него.','lv.fromCp':'С флажка','lv.retry':'Сначала'
+  'lv.cpHint':' Флажок пройден — можно продолжить с него.','lv.fromCp':'С флажка','lv.retry':'Сначала',
+  'wd.dress':'Платья','wd.top':'Футболки и кофты','wd.sh':'Шорты','wd.pa':'Джинсы и брюки','wd.sk':'Юбки','wd.shoes':'Обувь','wd.socks':'Носки и колготки'
   /* data lists are captured from the original arrays at boot */
 },
 en:{
@@ -651,8 +666,15 @@ en:{
   'lv.chest':'Chest found','lv.noChest':'The chest is still hidden','lv.noLoss':'Not a single life lost','lv.lost':'Lives were lost — the third star is waiting',
   'lv.next':'Next level','lv.over':'Out of lives','lv.kept':(p,s)=>`You keep what you collected: ${p} 💎 and ${s} ⭐.`,
   'lv.cpHint':' You reached a flag — you can continue from there.','lv.fromCp':'From the flag','lv.retry':'From the start',
+  'wd.dress':'Dresses','wd.top':'Tops','wd.sh':'Shorts','wd.pa':'Jeans & trousers','wd.sk':'Skirts','wd.shoes':'Shoes','wd.socks':'Socks & tights',
+  tops:['White star tee','Pink heart tee','Striped tee','Sunshine tee','Mint tank top','Hoodie','Cozy sweater','Denim shirt','Bow blouse','Rainbow tee'],
+  bots:['Denim shorts','Pink shorts','Sporty shorts','Checked shorts','Polka-dot shorts','Sunny shorts','Blue jeans','Light jeans','Flower jeans','Pink leggings','Sweatpants','Checked trousers',
+    'Tutu','Denim skirt','Pleated skirt','Polka-dot skirt','Checked skirt','Sparkly skirt'],
+  shoes:['Matching boots','White sneakers','Pink trainers','Sandals','Rain boots','Ballet flats','Tall boots','Golden shoes','Bunny slippers'],
+  socks:['No socks','White socks','Striped knee socks','Yellow knee socks','Pink tights','White tights','Starry tights'],
+  glasses:['No glasses','Round','Hearts','Stars','Sunglasses','Cat-eye'],
   girls:[['Mila','brave and full of ideas'],['Alya','cheerful singer'],['Taya','clever dreamer'],['Nika','fast as the wind']],
-  outfits:['Turquoise','Sunny','Lilac','Coral','Pink','Sky blue'],
+  outfits:['Turquoise','Sunny','Lilac','Coral','Pink','Sky blue','Polka dots','Sailor','Rainbow','Starry night'],
   unis:[['Marshmallow','cloud magic'],['Sparkle','spark magic'],['Frosty','snow magic'],['Blueberry','berry magic'],['Minty','forest magic'],['Midnight','star magic']],
   horns:['Gold','Pink','Light blue','Lilac','Mint','Silver','Rainbow'],
   manes:['Loose','Braid','Buns','Curls'],tails:['Loose','Braid','Fluffy','With ribbons'],
@@ -665,7 +687,7 @@ en:{
   hats:['No hat','Crown','Magic hat','Flower wreath','Cat ears'],gbacks:['Nothing','Cloak','Fairy wings'],
   wands:['No wand','Star','Heart','Crystal'],gstyles:['Pigtails','Buns','Bob','Braid','Long'],
   gcols:['Own','Pink','Light blue','Lilac','Mint','Gold'],
-  htabs:['Dress','Hat','Back','Wand','Hairstyle','Hair color','Sleep & menu'],
+  htabs:['Clothes','Shoes','Glasses','Hat','Back','Wand','Hairstyle','Hair color','Sleep & menu'],
   cats:[['Fluffy','soft and brave'],['Ginger','nimble star hunter'],['Cloudy','quiet and watchful'],['Sooty','sees in the dark']],
   catlv:['picks up stars nearby','+1 magic power','+1 life','shield: blocks one hit every 25 seconds','another +1 magic, shield recharges in 12 seconds'],
   magics:{spark:['Sparks','fast shots'],ice:['Ice','freezes grumpies'],rainbow:['Rainbow','flies through several grumpies'],bolt:['Lightning','jumps to nearby grumpies'],fall:['Starfall','stars fall from above and hit an area']},
@@ -725,8 +747,15 @@ de:{
   'lv.chest':'Truhe gefunden','lv.noChest':'Die Truhe ist noch versteckt','lv.noLoss':'Kein einziges Leben verloren','lv.lost':'Leben verloren — der dritte Stern wartet',
   'lv.next':'Nächstes Level','lv.over':'Keine Leben mehr','lv.kept':(p,s)=>`Was du gesammelt hast, bleibt dir: ${p} 💎 und ${s} ⭐.`,
   'lv.cpHint':' Du hast ein Fähnchen erreicht — dort kannst du weitermachen.','lv.fromCp':'Ab Fähnchen','lv.retry':'Von vorn',
+  'wd.dress':'Kleider','wd.top':'Oberteile','wd.sh':'Shorts','wd.pa':'Jeans & Hosen','wd.sk':'Röcke','wd.shoes':'Schuhe','wd.socks':'Socken & Strumpfhosen',
+  tops:['Weißes Sternshirt','Rosa Herzshirt','Ringelshirt','Sonnenshirt','Mint-Top','Kapuzenpulli','Kuschelpulli','Jeanshemd','Schleifenbluse','Regenbogenshirt'],
+  bots:['Jeansshorts','Rosa Shorts','Sportshorts','Karierte Shorts','Gepunktete Shorts','Sonnenshorts','Blaue Jeans','Helle Jeans','Blumenjeans','Rosa Leggings','Jogginghose','Karierte Hose',
+    'Tutu','Jeansrock','Faltenrock','Gepunkteter Rock','Karierter Rock','Glitzerrock'],
+  shoes:['Passende Stiefelchen','Weiße Turnschuhe','Rosa Sneaker','Sandalen','Gummistiefel','Ballerinas','Hohe Stiefel','Goldene Schuhe','Hasenpantoffeln'],
+  socks:['Keine Socken','Weiße Söckchen','Ringel-Kniestrümpfe','Gelbe Kniestrümpfe','Rosa Strumpfhose','Weiße Strumpfhose','Sternen-Strumpfhose'],
+  glasses:['Keine Brille','Rund','Herzen','Sterne','Sonnenbrille','Katzenaugen'],
   girls:[['Mila','mutig und voller Ideen'],['Alja','fröhliche Sängerin'],['Taja','klug und verträumt'],['Nika','schnell wie der Wind']],
-  outfits:['Türkis','Sonnengelb','Flieder','Koralle','Rosa','Himmelblau'],
+  outfits:['Türkis','Sonnengelb','Flieder','Koralle','Rosa','Himmelblau','Gepunktet','Matrose','Regenbogen','Sternennacht'],
   unis:[['Marshmallow','Wolkenzauber'],['Funkel','Funkenzauber'],['Flöckchen','Schneezauber'],['Blaubeere','Beerenzauber'],['Minzi','Waldzauber'],['Mitternacht','Sternenzauber']],
   horns:['Gold','Rosa','Hellblau','Flieder','Mint','Silber','Regenbogen'],
   manes:['Offen','Zopf','Dutts','Locken'],tails:['Offen','Zopf','Buschig','Mit Bändern'],
@@ -739,7 +768,7 @@ de:{
   hats:['Kein Hut','Krone','Zauberhut','Blumenkranz','Katzenohren'],gbacks:['Nichts','Umhang','Feenflügel'],
   wands:['Kein Zauberstab','Stern','Mit Herz','Kristall'],gstyles:['Zwei Zöpfchen','Dutts','Bob','Zopf','Lang'],
   gcols:['Eigene','Rosa','Hellblau','Flieder','Mint','Gold'],
-  htabs:['Kleid','Hut','Rücken','Zauberstab','Frisur','Haarfarbe','Schlaf & Menü'],
+  htabs:['Kleidung','Schuhe','Brille','Hut','Rücken','Zauberstab','Frisur','Haarfarbe','Schlaf & Menü'],
   cats:[['Flocke','weich und mutig'],['Fuchsi','jagt flink nach Sternen'],['Wölkchen','still und aufmerksam'],['Rußpfote','sieht im Dunkeln']],
   catlv:['sammelt Sterne in der Nähe ein','+1 Zauberkraft','+1 Leben','Schild: wehrt alle 25 Sekunden einen Treffer ab','noch +1 Zauberkraft, Schild lädt in 12 Sekunden auf'],
   magics:{spark:['Funken','schnelle Schüsse'],ice:['Eis','friert Grummlis ein'],rainbow:['Regenbogen','fliegt durch mehrere Grummlis'],bolt:['Blitz','springt auf Grummlis daneben über'],fall:['Sternregen','Sterne fallen von oben und treffen eine Fläche']},
@@ -766,6 +795,7 @@ function captureRu(){const R=I18N.ru,c1=a=>a.map(x=>x[1]),c2=a=>a.map(x=>x[2]);
   R.horns=c1(HORNS);R.manes=c1(MANES);R.tails=c1(TAILS);R.heads=c1(HEADS);R.necks=c1(NECKS);R.backs=c1(BACKS);R.feet=c1(FEET);R.trails=c1(TRAILS);R.mcols=c1(MCOLS);
   R.foods=c2(FOODS);R.tools=c2(TOOLS);R.titles=Object.assign({},TITLES);R.meters=c2(METERS);
   R.hats=c1(HATS);R.gbacks=c1(GBACKS);R.wands=c1(WANDS);R.gstyles=c1(GSTYLES);R.gcols=c1(GCOLS);R.htabs=c2(HTABS);
+  R.tops=TOPS.map(x=>x.name);R.bots=BOTS.map(x=>x.name);R.shoes=SHOES.map(x=>x.name);R.socks=SOCKS.map(x=>x.name);R.glasses=GLASSES.map(x=>x.name);
   R.cats=CATS.map(c=>[c.name,c.trait]);R.catlv=CAT_LV.slice();R.magics={};for(const k in MAGIC)R.magics[k]=[MAGIC[k].n,MAGIC[k].d];
   R.medalList=MEDALS.map(m=>[m[1],m[2]]);R.phases=PHASES.map(p=>p.n);R.wxs=WXS.map(w=>w.n);R.lvn=LVN.slice();
   R.boss={};for(const k in BOSS)R.boss[k]=BOSS[k].n;R.mapn=MAPN.slice();}
@@ -776,6 +806,7 @@ function applyData(){const D=I18N[LANG],R=I18N.ru,g=k=>D[k]||R[k];
   s1(HORNS,'horns');s1(MANES,'manes');s1(TAILS,'tails');s1(HEADS,'heads');s1(NECKS,'necks');s1(BACKS,'backs');s1(FEET,'feet');s1(TRAILS,'trails');s1(MCOLS,'mcols');
   s2(FOODS,'foods');s2(TOOLS,'tools');Object.assign(TITLES,g('titles'));s2(METERS,'meters');
   s1(HATS,'hats');s1(GBACKS,'gbacks');s1(WANDS,'wands');s1(GSTYLES,'gstyles');s1(GCOLS,'gcols');s2(HTABS,'htabs');
+  [[TOPS,'tops'],[BOTS,'bots'],[SHOES,'shoes'],[SOCKS,'socks'],[GLASSES,'glasses']].forEach(([a,k])=>a.forEach((x,i)=>x.name=g(k)[i]));
   CATS.forEach((x,i)=>{x.name=g('cats')[i][0];x.trait=g('cats')[i][1];});rep(CAT_LV,'catlv');
   for(const k in MAGIC){MAGIC[k].n=g('magics')[k][0];MAGIC[k].d=g('magics')[k][1];}
   MEDALS.forEach((m,i)=>{m[1]=g('medalList')[i][0];m[2]=g('medalList')[i][1];});
@@ -802,7 +833,11 @@ const OUTFITS=[
   {name:'Сиреневый',dress:'#9a7bf0',accent:'#ffe58a',boot:'#4b3a8c'},
   {name:'Коралловый',dress:'#ff7a6b',accent:'#fff1c2',boot:'#6a3a55'},
   {name:'Розовый',dress:'#ff8cc6',accent:'#ffffff',boot:'#b0457f'},
-  {name:'Небесный',dress:'#5fb2ff',accent:'#ffe58a',boot:'#2f4f8f'}
+  {name:'Небесный',dress:'#5fb2ff',accent:'#ffe58a',boot:'#2f4f8f'},
+  {name:'В горошек',dress:'#ff5f6d',accent:'#ffffff',boot:'#c23b55',pat:'dots'},
+  {name:'Морской',dress:'#2f4f8f',accent:'#e5484d',boot:'#e5484d',pat:'stripesW'},
+  {name:'Радужный',dress:'url(#gRainbow)',accent:'#ffffff',boot:'#7a5cf0'},
+  {name:'Звёздная ночь',dress:'#3b3170',accent:'#ffd84d',boot:'#2a2447',pat:'stars'}
 ];
 const UNIS=[
   {id:'zef',name:'Зефирка',magic:'облачная магия',b:'#ffe1ee',bs:'#f2b9d2',m1:'#ff8fc0',m2:'#ffd76e',hf:'#d98bb0'},
@@ -827,7 +862,7 @@ const TOOLS=[['pet','💗','Погладить'],['feed','🍎','Покорми�
 
 /* ---------- state ---------- */
 const KEY='unicorn-valley-v1';
-const fresh=()=>({girl:null,uni:null,cat:null,name:'',outfit:0,horn:'gold',mane:'loose',tail:'loose',head:'none',neck:'none',back:'none',
+const fresh=()=>({girl:null,uni:null,cat:null,name:'',outfit:0,wmode:'dress',top:'t0',bot:'pa0',shoes:'boots',socks:'none',glasses:'none',horn:'gold',mane:'loose',tail:'loose',head:'none',neck:'none',back:'none',
   stats:{happy:70,clean:80,food:60,energy:90},stars:0,best:0,muted:false,
   pts:0,catLv:1,pow:1,spd:1,life:1,magic:['spark'],curMagic:'spark',lv:{},owned:[],clock:130,wclock:60,rained:false,
   hat:'none',gback:'none',wand:'none',gstyle:'',gcol:'',feet:'none',mcol:'',trail:'none',mag:0,claw:0,ram:0,j3:false,medals:[],kills:0,washes:0,ch:{}});
@@ -836,7 +871,7 @@ try{const raw=localStorage.getItem(KEY); if(raw){const d=JSON.parse(raw); if(d&&
 if(!Array.isArray(S.magic)||!S.magic.length)S.magic=['spark'];if(!Array.isArray(S.owned))S.owned=[];if(!S.lv||typeof S.lv!=='object')S.lv={};
 if(!Array.isArray(S.medals))S.medals=[];if(!S.ch||typeof S.ch!=='object')S.ch={};
 const save=()=>{try{medalCheck();}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
-const girl=()=>{const g=GIRLS.find(g=>g.id===S.girl)||GIRLS[0];return Object.assign({},g,{style:S.gstyle||g.style,hair:S.gcol||g.hair,hat:S.hat,gback:S.gback,wand:S.wand});};
+const girl=()=>{const g=GIRLS.find(g=>g.id===S.girl)||GIRLS[0];return Object.assign({},g,{style:S.gstyle||g.style,hair:S.gcol||g.hair,hat:S.hat,gback:S.gback,wand:S.wand,wmode:S.wmode,top:S.top,bot:S.bot,shoes:S.shoes,socks:S.socks,glasses:S.glasses});};
 const uni=()=>UNIS.find(u=>u.id===S.uni)||UNIS[0];
 const uname=()=>(!S.name||defNames(S.uni).includes(S.name))?uni().name:S.name;
 const dirtLevel=()=>clamp((72-S.stats.clean)/72,0,1);
@@ -911,37 +946,205 @@ function girlHead(g){
     <ellipse cx="-19" cy="13" rx="5.5" ry="3.4" fill="#ff7fa8" opacity=".45"/><ellipse cx="19" cy="13" rx="5.5" ry="3.4" fill="#ff7fa8" opacity=".45"/>
     <path d="M-7 14Q0 21 7 14" fill="none" stroke="#2e2147" stroke-width="2.4" stroke-linecap="round"/>`+bangs+extra+girlHat(g.hat);
 }
+/* ---------- wardrobe: separates, shoes, socks, glasses ---------- */
+const TOPS=[
+  {id:'t0',name:'Белая со звездой',c:'#ffffff',a:'#ff7fbf',sl:'s',deco:'star'},
+  {id:'t1',name:'Розовая с сердечком',c:'#ff8cc6',a:'#ffffff',sl:'s',deco:'heart'},
+  {id:'t2',name:'В полоску',c:'#ffffff',a:'#5fb2ff',sl:'s',pat:'stripesB'},
+  {id:'t3',name:'С солнышком',c:'#ffd84d',a:'#ff8a3c',sl:'s',deco:'sun'},
+  {id:'t4',name:'Мятная майка',c:'#5fd9b0',a:'#ffffff',sl:'n',deco:'heart'},
+  {id:'t5',name:'Худи',c:'#a98bff',a:'#ffffff',sl:'l',deco:'pocket',hood:1},
+  {id:'t6',name:'Тёплый свитер',c:'#ff7a6b',a:'#fff1c2',sl:'l',deco:'knit'},
+  {id:'t7',name:'Джинсовая рубашка',c:'#6d9be0',a:'#ffffff',sl:'l',deco:'buttons'},
+  {id:'t8',name:'Блузка с бантом',c:'#fff7fb',a:'#ff5fa2',sl:'s',deco:'bow'},
+  {id:'t9',name:'Радужная футболка',c:'url(#gRainbow)',a:'#ffffff',sl:'s',deco:'star'}
+];
+const BOTS=[
+  {id:'sh0',k:'sh',name:'Джинсовые шорты',c:'#5b8fd9',a:'#ffd24d',deco:'denim'},
+  {id:'sh1',k:'sh',name:'Розовые шорты',c:'#ff8cc6',a:'#ffffff',deco:'cuff'},
+  {id:'sh2',k:'sh',name:'Спортивные шорты',c:'#7a5cf0',a:'#ffffff',deco:'stripe'},
+  {id:'sh3',k:'sh',name:'Шорты в клетку',c:'#e5484d',a:'#ffffff',pat:'check'},
+  {id:'sh4',k:'sh',name:'Шорты в горошек',c:'#2fb7b0',a:'#ffffff',pat:'dots'},
+  {id:'sh5',k:'sh',name:'Солнечные шорты',c:'#ffd84d',a:'#ff8a3c',deco:'cuff'},
+  {id:'pa0',k:'pa',name:'Синие джинсы',c:'#4a74c9',a:'#ffd24d',deco:'denim'},
+  {id:'pa1',k:'pa',name:'Голубые джинсы',c:'#8db6ea',a:'#ffd24d',deco:'denim'},
+  {id:'pa2',k:'pa',name:'Джинсы с цветочками',c:'#6d9be0',a:'#ffd24d',deco:'flower'},
+  {id:'pa3',k:'pa',name:'Розовые леггинсы',c:'#ff8cc6',a:'#ffffff',slim:1},
+  {id:'pa4',k:'pa',name:'Спортивные штаны',c:'#a9b6cc',a:'#ffffff',deco:'stripe'},
+  {id:'pa5',k:'pa',name:'Брюки в клетку',c:'#7a5cf0',a:'#ffffff',pat:'check'},
+  {id:'sk0',k:'sk',name:'Пачка',c:'#ffb8dc',a:'#ffffff',tutu:1},
+  {id:'sk1',k:'sk',name:'Джинсовая юбка',c:'#5b8fd9',a:'#ffd24d',deco:'denim'},
+  {id:'sk2',k:'sk',name:'Плиссированная юбка',c:'#2f4f8f',a:'#ffffff',deco:'pleat'},
+  {id:'sk3',k:'sk',name:'Юбка в горошек',c:'#e5484d',a:'#ffffff',pat:'dots'},
+  {id:'sk4',k:'sk',name:'Юбка в клетку',c:'#2fb7b0',a:'#ffffff',pat:'check'},
+  {id:'sk5',k:'sk',name:'Блестящая юбка',c:'#b58cff',a:'#ffe36e',pat:'spark'}
+];
+const SHOES=[
+  {id:'boots',name:'Ботиночки под цвет'},
+  {id:'sneak',name:'Белые кеды',c:'#ffffff',a:'#ff5fa2'},
+  {id:'run',name:'Розовые кроссовки',c:'#ff8cc6',a:'#ffffff'},
+  {id:'sand',name:'Сандалии',c:'#c98a5c'},
+  {id:'rain',name:'Резиновые сапожки',c:'#ffd23c',a:'#e8b21c'},
+  {id:'flats',name:'Балетки',c:'#ff7fbf',a:'#ffffff'},
+  {id:'tall',name:'Высокие сапоги',c:'#8a5a3c',a:'#f7c544'},
+  {id:'gold',name:'Золотые туфельки',c:'#f7c544',a:'#ffffff'},
+  {id:'bunny',name:'Тапочки-зайчики',c:'#fff4fa',a:'#ffb8dc'}
+];
+const SOCKS=[
+  {id:'none',name:'Без носков'},
+  {id:'ankle',name:'Белые носочки',c:'#ffffff'},
+  {id:'stripe',name:'Полосатые гольфы',c:'#ffffff',a:'#ff7fbf'},
+  {id:'knee',name:'Жёлтые гольфы',c:'#ffe36e'},
+  {id:'tpink',name:'Розовые колготки',c:'#ffb8dc',t:1},
+  {id:'twhite',name:'Белые колготки',c:'#fdf8ff',t:1},
+  {id:'tstar',name:'Колготки со звёздами',c:'#3b3170',t:1,pat:'stars'}
+];
+const GLASSES=[{id:'none',name:'Без очков'},{id:'round',name:'Круглые'},{id:'heart',name:'Сердечки'},{id:'star',name:'Звёздочки'},{id:'sun',name:'Солнечные'},{id:'cat',name:'Кошачьи'}];
+const byId=(a,id)=>a.find(x=>x.id===id)||a[0];
+const PAT={dots:'url(#pDots)',stripesW:'url(#pStripesW)',stripesB:'url(#pStripesB)',stars:'url(#pStars)',check:'url(#pCheck)',spark:'url(#pSpark)'};
+const patOver=(d,p)=>p?`<path d="${d}" fill="${PAT[p]}"/>`:'';
+const heartD=(x,y,s)=>`M${x} ${y+10*s}C${x-14*s} ${y} ${x-12*s} ${y-12*s} ${x-4*s} ${y-10*s}C${x-2*s} ${y-10*s} ${x} ${y-7*s} ${x} ${y-5*s}C${x} ${y-7*s} ${x+2*s} ${y-10*s} ${x+4*s} ${y-10*s}C${x+12*s} ${y-12*s} ${x+14*s} ${y} ${x} ${y+10*s}Z`;
+const flower=(x,y,c,s)=>`<g transform="translate(${x} ${y}) scale(${s||1})"><g fill="${c}"><circle cy="-3" r="2.6"/><circle cx="2.9" cy="-.9" r="2.6"/><circle cx="1.8" cy="2.5" r="2.6"/><circle cx="-1.8" cy="2.5" r="2.6"/><circle cx="-2.9" cy="-.9" r="2.6"/></g><circle r="1.8" fill="#f7a53c"/></g>`;
+const zig=(x0,x1,y,h)=>{let d=`M${x0} ${y}`;for(let x=x0,i=0;x<x1;x+=5,i++)d+=`L${Math.min(x+5,x1)} ${y+(i%2?0:-h)}`;return d;};
+
+/* standing girl (viewBox 0 -24 160 324) */
+function dressPart(o){const d='M60 106Q80 98 100 106L120 200Q80 214 40 200Z';
+  return `<path d="M60 114L54 134M100 114L106 134" stroke="${o.dress}" stroke-width="16" stroke-linecap="round"/>
+    <path d="${d}" fill="${o.dress}"/>${patOver(d,o.pat)}
+    <path d="M53 152Q80 160 107 152" fill="none" stroke="${o.accent}" stroke-width="6" stroke-linecap="round"/>
+    <path d="M40 200Q80 214 120 200" fill="none" stroke="${o.accent}" stroke-width="5" stroke-linecap="round"/>${star(80,128,.85,o.accent)}`;}
+function topPart(t){const c=t.c,a=t.a;let s='';
+  if(t.hood)s+=`<path d="M58 110Q54 92 80 92Q106 92 102 110Q80 100 58 110Z" fill="${c}"/><path d="M60 108Q80 99 100 108" fill="none" stroke="rgba(0,0,0,.16)" stroke-width="3"/>`;
+  if(t.sl==='s')s+=`<path d="M60 113L53 135M100 113L107 135" stroke="${c}" stroke-width="17" stroke-linecap="round"/>`;
+  else if(t.sl==='l')s+=`<path d="M60 114L44.5 162M100 114L115.5 162" stroke="${c}" stroke-width="14.5" stroke-linecap="round"/><path d="M40 158L49 161.5M120 158L111 161.5" stroke="rgba(0,0,0,.16)" stroke-width="4" stroke-linecap="round"/>`;
+  const d=t.sl==='n'?'M65 105Q80 116 95 105L100 107L106 188Q80 196 54 188L60 107Z':'M60 106Q80 98 100 106L106 188Q80 196 54 188Z';
+  s+=`<path d="${d}" fill="${c}"/>${patOver(d,t.pat)}<path d="M54.5 185Q80 193 105.5 185" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="4"/>`;
+  if(t.deco==='star')s+=star(80,142,1,a);
+  else if(t.deco==='heart')s+=`<path d="${heartD(80,141,.9)}" fill="${a}"/>`;
+  else if(t.deco==='sun'){s+=`<circle cx="80" cy="142" r="7" fill="${a}"/><g stroke="${a}" stroke-width="2.6" stroke-linecap="round">`;
+    for(let i=0;i<8;i++){const an=i*Math.PI/4,c1=Math.cos(an),s1=Math.sin(an);s+=`<path d="M${(80+c1*10.5).toFixed(1)} ${(142+s1*10.5).toFixed(1)}L${(80+c1*14.5).toFixed(1)} ${(142+s1*14.5).toFixed(1)}"/>`;}s+='</g>';}
+  else if(t.deco==='pocket')s+=`<path d="M64 158H96L92 178H68Z" fill="rgba(0,0,0,.1)"/><path d="M75 106V124M85 106V124" stroke="${a}" stroke-width="2.6" stroke-linecap="round"/>`;
+  else if(t.deco==='knit')s+=`<path d="${zig(58,102,130,4)}M${zig(56,104,168,4).slice(1)}" fill="none" stroke="${a}" stroke-width="3" stroke-linejoin="round"/>`;
+  else if(t.deco==='buttons')s+=`<path d="M80 110V190" stroke="rgba(0,0,0,.18)" stroke-width="2"/><g fill="${a}"><circle cx="83" cy="124" r="2.3"/><circle cx="83" cy="142" r="2.3"/><circle cx="83" cy="160" r="2.3"/><circle cx="83" cy="177" r="2.3"/></g>
+    <path d="M66 103L80 116L71 121ZM94 103L80 116L89 121Z" fill="${a}"/><path d="M89 130H99V140H89Z" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1.6"/>`;
+  else if(t.deco==='bow')s+=`<path d="M66 104Q80 114 94 104" fill="none" stroke="${a}" stroke-width="3"/>${bow(80,111,.62,a,0)}`;
+  return s;}
+function botPart(b){const c=b.c,a=b.a;let d,s='';
+  if(b.k==='pa')d=b.slim?'M57 180Q80 186 103 180L99 264L86 264L80 206L74 264L61 264Z':'M55 180Q80 186 105 180L102 264L84 264L80 206L76 264L58 264Z';
+  else if(b.k==='sh')d='M55 180Q80 186 105 180L109 214L82 216L80 202L78 216L51 214Z';
+  else d=b.tutu?'M56 180Q80 186 104 180L124 213Q115 224 104 217Q93 228 82 219Q70 228 58 217Q46 224 36 213Z':b.deco==='denim'?'M56 180Q80 186 104 180L110 218Q80 224 50 218Z':'M56 180Q80 186 104 180L118 224Q80 236 42 224Z';
+  s=`<path d="${d}" fill="${c}"/>${patOver(d,b.pat)}`;
+  if(b.tutu)s+=`<path d="M58 182Q80 188 102 182L115 207Q104 214 96 208Q88 216 80 209Q72 216 64 208Q56 214 45 207Z" fill="#fff" opacity=".4"/>`;
+  if(b.deco==='denim'){const seam=b.k==='pa'?'M67 196V259M93 196V259':b.k==='sh'?'M66 194V211M94 194V211':'M80 188V219';
+    s+=`<path d="${seam}M60 187Q66 197 72 188M88 188Q94 197 100 187" fill="none" stroke="${a}" stroke-width="1.6" stroke-dasharray="3 2.6"/>`;}
+  if(b.deco==='stripe')s+=`<path d="${b.k==='pa'?'M57.5 187L60.5 262M102.5 187L99.5 262':'M54 187L52.4 212M106 187L107.6 212'}" stroke="${a}" stroke-width="3"/>`;
+  if(b.deco==='flower')s+=`<path d="M67 196V259M93 196V259" stroke="${a}" stroke-width="1.5" stroke-dasharray="3 2.6"/>`+flower(66,238,'#ff8cc6')+flower(95,216,'#fff')+flower(91,250,'#ffe36e',.8);
+  if(b.deco==='cuff')s+=`<path d="M52 210.5L79 212.5M81 212.5L108 210.5" stroke="${a}" stroke-width="5" stroke-linecap="round"/>`;
+  if(b.deco==='pleat')s+=`<path d="M67 187L59 227M80 188V231M93 187L101 227" stroke="rgba(0,0,0,.22)" stroke-width="2"/>`;
+  if(b.k==='sk'&&!b.tutu&&b.deco!=='denim')s+=`<path d="M42 224Q80 236 118 224" fill="none" stroke="${a}" stroke-width="4" stroke-linecap="round"/>`;
+  return s+`<path d="M55.5 183Q80 189 104.5 183" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="4"/>`;}
+function shoePart(id,boot,skin){const sh=byId(SHOES,id);
+  const f=(X,r)=>{const P=(y0,w,c)=>`<path d="M${X} ${y0}L${X} 278L${X+9*r} 278" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    switch(sh.id){
+      case 'sneak':case 'run':return P(270,15,sh.c)+`<path d="M${X-5*r} 284.6H${X+14*r}" stroke="${sh.a}" stroke-width="3" stroke-linecap="round"/><circle cx="${X+3*r}" cy="273" r="1.7" fill="${sh.a}"/>`;
+      case 'sand':return P(266,13,skin)+`<path d="M${X-6} 272H${X+6}M${X-4*r} 279.5H${X+13*r}" stroke="${sh.c}" stroke-width="3" stroke-linecap="round"/><path d="M${X-6*r} 285.5H${X+15*r}" stroke="${sh.c}" stroke-width="3.5" stroke-linecap="round"/>`;
+      case 'rain':return P(238,17,sh.c)+`<path d="M${X-9} 238H${X+9}" stroke="${sh.a}" stroke-width="4" stroke-linecap="round"/>`;
+      case 'flats':return P(274,14,sh.c)+`<circle cx="${X+8*r}" cy="276" r="2.6" fill="${sh.a}"/>`;
+      case 'tall':return P(226,16,sh.c)+`<rect x="${X-8.5}" y="244" width="17" height="4" rx="2" fill="${sh.a}"/>`;
+      case 'gold':return P(274,14,sh.c)+star(X+5*r,277,.38,sh.a);
+      case 'bunny':return `<ellipse cx="${X+r}" cy="268" rx="3" ry="7.5" fill="${sh.c}" transform="rotate(${-14*r} ${X+r} 268)"/><ellipse cx="${X+8*r}" cy="268" rx="3" ry="7.5" fill="${sh.c}" transform="rotate(${16*r} ${X+8*r} 268)"/>
+        <ellipse cx="${X+r}" cy="268" rx="1.3" ry="4.5" fill="${sh.a}" transform="rotate(${-14*r} ${X+r} 268)"/><ellipse cx="${X+8*r}" cy="268" rx="1.3" ry="4.5" fill="${sh.a}" transform="rotate(${16*r} ${X+8*r} 268)"/>
+        <ellipse cx="${X+4*r}" cy="279" rx="13" ry="8.5" fill="${sh.c}"/><circle cx="${X+9*r}" cy="277" r="1.5" fill="#3a2358"/><circle cx="${X+15*r}" cy="280.5" r="1.7" fill="${sh.a}"/>`;
+      default:return P(262,15,boot);}};
+  return f(68,-1)+f(92,1);}
+function sockPart(id){const k=byId(SOCKS,id);if(k.id==='none')return '';const y0=k.t?196:k.id==='ankle'?258:224;
+  return [68,92].map(X=>{const p=`M${X} ${y0}L${X} 272`;
+    return `<path d="${p}" stroke="${k.c}" stroke-width="14" stroke-linecap="${k.t?'butt':'round'}"/>`+
+      (k.id==='stripe'?`<path d="M${X} ${y0+2}L${X} 270" stroke="${k.a}" stroke-width="14" stroke-dasharray="4 4"/>`:'')+
+      (k.pat?`<path d="${p}" stroke="${PAT[k.pat]}" stroke-width="14"/>`:'')+
+      (!k.t?`<path d="M${X-7} ${y0}H${X+7}" stroke="rgba(0,0,0,.12)" stroke-width="3"/>`:'');}).join('');}
+/* glasses, in head coordinates */
+function glassesPart(id){const br=c=>`<path d="M-3 2Q0 0 3 2M-19 1L-23 -1M19 1L23 -1" fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/>`;
+  switch(id){
+    case 'round':return `<g fill="rgba(255,255,255,.18)" stroke="#5b3f8c" stroke-width="1.8"><circle cx="-11" cy="3" r="8"/><circle cx="11" cy="3" r="8"/></g>`+br('#5b3f8c');
+    case 'heart':return `<g fill="rgba(255,120,180,.38)" stroke="#ff5fa2" stroke-width="1.8" stroke-linejoin="round"><path d="${heartD(-11,2,.82)}"/><path d="${heartD(11,2,.82)}"/></g>`+br('#ff5fa2');
+    case 'star':return `<g fill="rgba(255,227,110,.35)" stroke="#f7a53c" stroke-width="1.7" stroke-linejoin="round"><path d="${STAR}" transform="translate(-11 3) scale(.98)"/><path d="${STAR}" transform="translate(11 3) scale(.98)"/></g>`+br('#f7a53c');
+    case 'sun':return `<g fill="#2e2147" opacity=".9"><rect x="-19.5" y="-3" width="17" height="12" rx="5"/><rect x="2.5" y="-3" width="17" height="12" rx="5"/></g><path d="M-16 0L-12 0M6 0L10 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>`+br('#2e2147');
+    case 'cat':return `<g fill="rgba(200,170,255,.3)" stroke="#9a7bf0" stroke-width="2" stroke-linejoin="round"><path d="M-3 0Q-4 10 -11 10Q-18 10 -19 1L-22 -5Q-12 -3 -3 0Z"/><path d="M3 0Q4 10 11 10Q18 10 19 1L22 -5Q12 -3 3 0Z"/></g><path d="M-3 2Q0 0 3 2" fill="none" stroke="#9a7bf0" stroke-width="2"/>`;
+    default:return '';}}
+/* rider pose (sitting on the unicorn, local coordinates of riderG) */
+function rTop(t){const c=t.c,a=t.a;const d=t.sl==='n'?'M-10 -46Q0 -40 10 -46L13 -44L17 0Q0 7 -17 0L-13 -44Z':'M-13 -44Q0 -50 13 -44L17 0Q0 7 -17 0Z';
+  let s=(t.hood?`<path d="M-14 -42Q-16 -55 0 -55Q16 -55 14 -42Q0 -49 -14 -42Z" fill="${c}"/>`:'')+`<path d="${d}" fill="${c}"/>${patOver(d,t.pat)}`;
+  if(t.deco==='star')s+=star(1,-22,.6,a);else if(t.deco==='heart')s+=`<path d="${heartD(1,-22,.55)}" fill="${a}"/>`;
+  else if(t.deco==='sun')s+=`<circle cx="1" cy="-22" r="4.5" fill="${a}"/>`;else if(t.deco==='bow')s+=bow(0,-41,.45,a,0);
+  else if(t.deco==='buttons')s+=`<path d="M0 -44V3" stroke="rgba(0,0,0,.18)" stroke-width="1.6"/><g fill="${a}"><circle cx="2" cy="-32" r="1.7"/><circle cx="2" cy="-20" r="1.7"/><circle cx="2" cy="-8" r="1.7"/></g>`;
+  else if(t.deco==='knit')s+=`<path d="${zig(-14,15,-22,3)}" fill="none" stroke="${a}" stroke-width="2.4"/>`;
+  else if(t.deco==='pocket')s+=`<path d="M-9 -14H9L7 -2H-7Z" fill="rgba(0,0,0,.1)"/>`;
+  return s;}
+function rSleeve(t){return t.sl==='s'?`<path d="M7 -38L18 -30" stroke="${t.c}" stroke-width="13" stroke-linecap="round"/>`:t.sl==='l'?`<path d="M7 -38L36 -17" stroke="${t.c}" stroke-width="11" stroke-linecap="round"/>`:'';}
+function rBot(b){const c=b.c,hip='M-18 -5Q0 3 18 -5L19 8Q0 14 -18 7Z';
+  if(b.k==='sk'){const d=b.tutu?'M-17 -4Q0 4 17 -4L31 9Q26 16 20 13Q12 20 4 15Q-6 21 -12 14Q-20 18 -27 8Z':'M-17 -4Q0 4 17 -4L27 12Q2 23 -24 11Z';
+    return `<path d="${d}" fill="${c}"/>${patOver(d,b.pat)}`+(!b.tutu&&b.deco!=='denim'?`<path d="M-24 11Q2 23 27 12" fill="none" stroke="${b.a}" stroke-width="3" stroke-linecap="round"/>`:'');}
+  const leg=b.k==='pa'?'M-2 -6L24 22L18.5 50':'M-2 -6L15 12';
+  return `<path d="${hip}" fill="${c}"/><path d="${leg}" fill="none" stroke="${c}" stroke-width="${b.k==='sh'?17:b.slim?14:16}" stroke-linecap="round" stroke-linejoin="round"/>`+
+    (b.pat?`<path d="${leg}" fill="none" stroke="${PAT[b.pat]}" stroke-width="${b.k==='sh'?17:16}" stroke-linecap="round" stroke-linejoin="round"/>`:'')+
+    (b.deco==='stripe'?`<path d="${b.k==='pa'?'M3 -10L29 19L23 49':'M3 -10L19 7'}" fill="none" stroke="${b.a}" stroke-width="2.4" stroke-linejoin="round"/>`:'')+
+    (b.deco==='cuff'?`<path d="M9 18L21 6" stroke="${b.a}" stroke-width="4" stroke-linecap="round"/>`:'')+
+    (b.deco==='flower'?flower(23,32,'#ff8cc6',.75):'');}
+function rSocks(id){const k=byId(SOCKS,id);if(k.id==='none')return '';const p=k.t?'M-2 -6L24 22L18 56':k.id==='ankle'?'M19.2 46L18 56':'M23 28L18 56';
+  return `<path d="${p}" fill="none" stroke="${k.c}" stroke-width="13.5" stroke-linecap="round" stroke-linejoin="round"/>`+
+    (k.id==='stripe'?`<path d="${p}" fill="none" stroke="${k.a}" stroke-width="13.5" stroke-dasharray="3.5 3.5"/>`:'')+
+    (k.pat?`<path d="${p}" fill="none" stroke="${PAT[k.pat]}" stroke-width="13.5" stroke-linejoin="round"/>`:'');}
+function rShoe(id,boot,skin){const sh=byId(SHOES,id);const P=(y0,w,c)=>`<path d="M18 ${y0}L18 65L29 65" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  switch(sh.id){
+    case 'sneak':case 'run':return P(58,13,sh.c)+`<path d="M13.5 71H33" stroke="${sh.a}" stroke-width="2.6" stroke-linecap="round"/>`;
+    case 'sand':return P(56,11,skin)+`<path d="M13 60H23M15 65.5H31" stroke="${sh.c}" stroke-width="2.6" stroke-linecap="round"/><path d="M13 71H33" stroke="${sh.c}" stroke-width="3" stroke-linecap="round"/>`;
+    case 'rain':return P(38,15,sh.c)+`<path d="M10 38H26" stroke="${sh.a}" stroke-width="3.5" stroke-linecap="round"/>`;
+    case 'flats':return P(61,12,sh.c)+`<circle cx="26" cy="64" r="2.2" fill="${sh.a}"/>`;
+    case 'tall':return P(30,14,sh.c)+`<rect x="10.5" y="44" width="15" height="3.5" rx="1.7" fill="${sh.a}"/>`;
+    case 'gold':return P(61,12,sh.c)+star(23,64,.32,sh.a);
+    case 'bunny':return `<ellipse cx="22" cy="57" rx="2.6" ry="6.5" fill="${sh.c}" transform="rotate(-10 22 57)"/><ellipse cx="28" cy="57" rx="2.6" ry="6.5" fill="${sh.c}" transform="rotate(14 28 57)"/><ellipse cx="22" cy="66" rx="12" ry="7.5" fill="${sh.c}"/><circle cx="27" cy="64" r="1.4" fill="#3a2358"/><circle cx="33" cy="67" r="1.5" fill="${sh.a}"/>`;
+    default:return P(52,13,boot);}}
+/* thumbnails for the wardrobe buttons */
+const thumb=(vb,inner)=>`<svg viewBox="${vb}" aria-hidden="true">${inner}</svg>`;
+const noneIco=(cx,cy,r)=>`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" style="stroke:var(--ink-soft)" stroke-width="${r/7}"/><path d="M${cx-r*.7} ${cy+r*.7}L${cx+r*.7} ${cy-r*.7}" style="stroke:var(--ink-soft)" stroke-width="${r/7}" stroke-linecap="round"/>`;
+const wearThumb={
+  outfit:o=>thumb('34 92 92 124',dressPart(o)),
+  top:t=>thumb('34 88 92 108',topPart(t)),
+  bot:b=>thumb(b.k==='pa'?'38 174 84 94':b.k==='sh'?'34 168 92 56':'30 170 100 70',botPart(b)),
+  shoes:(s,boot,skin)=>thumb(s.id==='tall'||s.id==='rain'?'42 222 76 70':'44 252 72 40',shoePart(s.id,boot,skin)),
+  socks:k=>k.id==='none'?thumb('0 0 40 40',noneIco(20,20,13)):thumb('46 192 68 88',sockPart(k.id)),
+  glasses:gl=>gl.id==='none'?thumb('0 0 40 40',noneIco(20,20,13)):thumb('-25 -10 50 24',glassesPart(gl.id))
+};
+
 function girlSVG(g,outfit,attrs){
-  const o=OUTFITS[outfit]||OUTFITS[0];
+  const o=OUTFITS[outfit]||OUTFITS[0],sep=g.wmode==='sep',boot=sep?'#7a4a8c':o.boot;
   const gb=g.gback==='cloak'?`<path d="M54 108Q80 100 106 108L134 216Q80 236 26 216Z" fill="#7a5cf0"/><path d="M26 216Q80 236 134 216" fill="none" stroke="#f7c544" stroke-width="4" stroke-linecap="round"/>`
     :g.gback==='fairy'?`<g fill="url(#gWing)" stroke="#fff" stroke-width="3" opacity=".92"><path d="M72 122C40 60 2 74 6 118C8 146 44 150 72 140Z"/><path d="M88 122C120 60 158 74 154 118C152 146 116 150 88 140Z"/><path d="M72 142C44 150 26 172 36 194C52 200 68 176 74 152Z"/><path d="M88 142C116 150 134 172 124 194C108 200 92 176 86 152Z"/></g>`:'';
   const wd=g.wand&&g.wand!=='none'?`<path d="M118 172L136 128" stroke="#f7c544" stroke-width="4" stroke-linecap="round"/>${wandTop(g.wand,137,121)}`:'';
   return `<svg class="girl" viewBox="0 -24 160 324" ${attrs||''} aria-hidden="true">
     <ellipse cx="80" cy="290" rx="46" ry="8" opacity=".12"/>${gb}
     <path d="M68 196L68 262M92 196L92 262" stroke="${g.skin}" stroke-width="13" stroke-linecap="round"/>
-    <path d="M68 262L68 278L59 278M92 262L92 278L101 278" fill="none" stroke="${o.boot}" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    ${sockPart(g.socks)}${sep?botPart(byId(BOTS,g.bot)):''}${shoePart(g.shoes,boot,g.skin)}
     <path d="M60 116L42 168M100 116L118 168" stroke="${g.skin}" stroke-width="12" stroke-linecap="round"/>
-    <path d="M60 114L54 134M100 114L106 134" stroke="${o.dress}" stroke-width="16" stroke-linecap="round"/>
-    <path d="M60 106Q80 98 100 106L120 200Q80 214 40 200Z" fill="${o.dress}"/>
-    <path d="M53 152Q80 160 107 152" fill="none" stroke="${o.accent}" stroke-width="6" stroke-linecap="round"/>
-    <path d="M40 200Q80 214 120 200" fill="none" stroke="${o.accent}" stroke-width="5" stroke-linecap="round"/>
-    ${star(80,128,.85,o.accent)}${g.gback==='cloak'?'<circle cx="80" cy="105" r="5" fill="#f7c544"/>':''}${wd}
-    <g transform="translate(80 64) scale(1.4)">${girlHead(g)}</g></svg>`;
+    ${sep?topPart(byId(TOPS,g.top)):dressPart(o)}
+    ${g.gback==='cloak'?'<circle cx="80" cy="105" r="5" fill="#f7c544"/>':''}${wd}
+    <g transform="translate(80 64) scale(1.4)">${girlHead(g)}${glassesPart(g.glasses)}</g></svg>`;
 }
 function riderG(g,outfit){
-  const o=OUTFITS[outfit]||OUTFITS[0];
+  const o=OUTFITS[outfit]||OUTFITS[0],sep=g.wmode==='sep',boot=sep?'#7a4a8c':o.boot,tp=sep?byId(TOPS,g.top):null;
   const gb=g.gback==='cloak'?`<path d="M-12 -44Q-34 -22 -42 14Q-22 12 -8 2Z" fill="#7a5cf0"/>`
     :g.gback==='fairy'?`<g fill="url(#gWing)" stroke="#fff" stroke-width="2.5" opacity=".92"><path d="M-8 -36C-40 -70 -62 -42 -48 -22C-38 -10 -20 -16 -8 -24Z"/><path d="M-8 -22C-34 -16 -44 2 -34 14C-22 16 -12 0 -6 -12Z"/></g>`:'';
   const wd=g.wand&&g.wand!=='none'?`<path d="M40 -14L54 -42" stroke="#f7c544" stroke-width="3.5" stroke-linecap="round"/>${wandTop(g.wand,55,-48)}`:'';
+  const dT='M-13 -44Q0 -50 13 -44L18 2Q0 10 -18 2Z',dS='M-18 1Q0 9 18 1L28 13Q2 25 -25 12Z';
   return `<g transform="translate(168 133)">${gb}
     <path d="M-2 -6L24 22L18 54" fill="none" stroke="${g.skin}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M18 52L18 65L29 65" fill="none" stroke="${o.boot}" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M-13 -44Q0 -50 13 -44L18 2Q0 10 -18 2Z" fill="${o.dress}"/>
-    <path d="M-18 1Q0 9 18 1L28 13Q2 25 -25 12Z" fill="${o.dress}"/>
-    <path d="M-25 12Q2 25 28 13" fill="none" stroke="${o.accent}" stroke-width="4" stroke-linecap="round"/>
+    ${rSocks(g.socks)}${sep?rBot(byId(BOTS,g.bot)):''}${rShoe(g.shoes,boot,g.skin)}
+    ${sep?rTop(tp):`<path d="${dT}" fill="${o.dress}"/>${patOver(dT,o.pat)}<path d="${dS}" fill="${o.dress}"/>${patOver(dS,o.pat)}
+    <path d="M-25 12Q2 25 28 13" fill="none" stroke="${o.accent}" stroke-width="4" stroke-linecap="round"/>`}
     <path d="M8 -36L40 -14" stroke="${g.skin}" stroke-width="9" stroke-linecap="round"/>
-    <path d="M7 -38L18 -30" stroke="${o.dress}" stroke-width="13" stroke-linecap="round"/>${wd}
-    <g transform="translate(0 -68) scale(.82)">${girlHead(g)}</g></g>`;
+    ${sep?rSleeve(tp):`<path d="M7 -38L18 -30" stroke="${o.dress}" stroke-width="13" stroke-linecap="round"/>`}${wd}
+    <g transform="translate(0 -68) scale(.82)">${girlHead(g)}${glassesPart(g.glasses)}</g></g>`;
 }
 const MCOL={rose:{m1:'#ff5fa2',m2:'#ffd1e6'},ocean:{m1:'#2f9bff',m2:'#7fe6d8'},sunset:{m1:'#ff7a3c',m2:'#ffd24d'},night:{m1:'#4b3a8c',m2:'#b58cff'},rainbow:{m1:'url(#gRainbow)',m2:'#ffffff'}};
 
@@ -1273,8 +1476,8 @@ const GBACKS=[['none','Ничего'],['cloak','Плащ'],['fairy','Крыль�
 const WANDS=[['none','Без палочки'],['star','Звёздная'],['heart','С сердечком'],['crystal','Хрустальная']];
 const GSTYLES=[['tails','Два хвостика'],['puffs','Пучки'],['bob','Каре'],['braid','Коса'],['long','Длинные']];
 const GCOLS=[['','Свой'],['#ff7fbf','Розовый'],['#5fb2ff','Голубой'],['#9a7bf0','Сиреневый'],['#3fcfae','Мятный'],['#f5c542','Золотой']];
-const HTABS=[['dress','👗','Платье'],['hat','👒','Шляпа'],['gback','🧚','Спина'],['wand','✨','Палочка'],['gstyle','💇','Причёска'],['gcol','🎨','Цвет волос'],['home','🌙','Сон и меню']];
-let htab='dress';
+const HTABS=[['dress','👗','Одежда'],['shoes','👟','Обувь'],['glasses','👓','Очки'],['hat','👒','Шляпа'],['gback','🧚','Спина'],['wand','✨','Палочка'],['gstyle','💇','Причёска'],['gcol','🎨','Цвет волос'],['home','🌙','Сон и меню']];
+let htab='dress',hsub='dress',hshoe='shoes';
 function enterHouse(){
   $('#hsBg').innerHTML=houseBg();$('#hsSleep').classList.remove('on');
   $('#hsTabs').innerHTML=HTABS.map(t=>`<button class="tool" data-t="${t[0]}"><i>${t[1]}</i>${t[2]}</button>`).join('');
@@ -1285,7 +1488,18 @@ function houseDraw(){
   $$('#hsTabs .tool').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===htab));
   const o=$('#hsOpts'),base=GIRLS.find(g=>g.id===S.girl)||GIRLS[0];
   const lock=k=>has(k)?'':'🔒';
-  if(htab==='dress')o.innerHTML=OUTFITS.map((x,i)=>`<button class="sw" data-k="outfit" data-v="${i}" style="--c:${x.dress}" aria-label="${x.name}" title="${x.name}${has('outfit:'+i)?'':', '+PRICE['outfit:'+i]+' ⭐'}" aria-pressed="${S.outfit===i}">${lock('outfit:'+i)}</button>`).join('');
+  const wb=(kk,id,name,on,svg)=>{const key=kk+':'+id,own=has(key);return `<button class="wear" data-k="${kk}" data-v="${id}" aria-pressed="${on}" aria-label="${esc(name)}" title="${esc(name)}${own?'':', '+PRICE[key]+' ⭐'}">${svg}${own?'':`<span class="lk">🔒 ${PRICE[key]}⭐</span>`}</button>`;};
+  const subs=(attr,cv,list)=>`<div class="grp sub">${list.map(x=>`<button class="chip" data-${attr}="${x}" aria-pressed="${cv===x}">${tt('wd.'+x)}</button>`).join('')}</div>`;
+  const sep=S.wmode==='sep',boot=sep?'#7a4a8c':(OUTFITS[S.outfit]||OUTFITS[0]).boot,skin=base.skin;
+  if(htab==='dress'){let it;
+    if(hsub==='dress')it=OUTFITS.map((x,i)=>wb('outfit',i,x.name,!sep&&S.outfit===i,wearThumb.outfit(x)));
+    else if(hsub==='top')it=TOPS.map(x=>wb('top',x.id,x.name,sep&&S.top===x.id,wearThumb.top(x)));
+    else it=BOTS.filter(x=>x.k===hsub).map(x=>wb('bot',x.id,x.name,sep&&S.bot===x.id,wearThumb.bot(x)));
+    o.innerHTML=subs('sub',hsub,['dress','top','sh','pa','sk'])+`<div class="grp items">${it.join('')}</div>`;}
+  else if(htab==='shoes')o.innerHTML=subs('shoe',hshoe,['shoes','socks'])+`<div class="grp items">${hshoe==='shoes'
+    ?SHOES.map(x=>wb('shoes',x.id,x.name,S.shoes===x.id,wearThumb.shoes(x,boot,skin))).join('')
+    :SOCKS.map(x=>wb('socks',x.id,x.name,S.socks===x.id,wearThumb.socks(x))).join('')}</div>`;
+  else if(htab==='glasses')o.innerHTML=`<div class="grp items">${GLASSES.map(x=>wb('glasses',x.id,x.name,S.glasses===x.id,wearThumb.glasses(x))).join('')}</div>`;
   else if(htab==='hat')o.innerHTML=chips('hat',HATS);
   else if(htab==='gback')o.innerHTML=chips('gback',GBACKS);
   else if(htab==='wand')o.innerHTML=chips('wand',WANDS);
@@ -1296,11 +1510,12 @@ function houseDraw(){
 $('#hsTabs').onclick=e=>{const b=e.target.closest('.tool');if(!b)return;sfx.tap();htab=b.dataset.t;houseDraw();};
 $('#hsOpts').onclick=e=>{
   const lb=e.target.closest('[data-lang]');if(lb){sfx.tap();setLang(lb.dataset.lang);return;}
+  const sb=e.target.closest('[data-sub],[data-shoe]');if(sb){sfx.tap();if(sb.dataset.sub)hsub=sb.dataset.sub;else hshoe=sb.dataset.shoe;houseDraw();return;}
   const h=e.target.closest('[data-h]');
   if(h){sfx.tap();const a=h.dataset.h;
     if(a==='sleep')houseSleep();else if(a==='repick'){pickG=S.girl;pickU=S.uni;go('girl');}else go('title');return;}
   const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k,v=b.dataset.v;
-  if(!buy(k+':'+v))return;S[k]=k==='outfit'?+v:v;save();sfx.tap();houseDraw();};
+  if(!buy(k+':'+v))return;S[k]=k==='outfit'?+v:v;if(k==='outfit')S.wmode='dress';else if(k==='top'||k==='bot')S.wmode='sep';save();sfx.tap();houseDraw();};
 function houseSleep(){const s=$('#hsSleep');if(s.classList.contains('on'))return;s.classList.add('on');tone(520,.5,'sine',.05,.6);
   setTimeout(()=>{S.stats.energy=100;S.clock=2;bump('happy',5);bump('food',-8);save();updMeters();s.classList.remove('on');if(cur==='house')toast(tt('hs.morning',uname()));},2000);}
 
@@ -1457,7 +1672,14 @@ window.addEventListener('resize',()=>{if(cur==='track')sizeTrack();if(cur==='hub
 const PRICE={'head:crown':30,'head:wreath':15,'neck:beads':20,'neck:scarf':15,'neck:cape':45,'back:starry':40,'back:saddle':35,'back:wings':60,'horn:rainbow':50,'outfit:4':25,'outfit:5':25,
   'feet:shoes':30,'mcol:rose':20,'mcol:ocean':20,'mcol:sunset':20,'mcol:night':20,'mcol:rainbow':60,'trail:sparkle':40,'trail:hearts':40,'trail:rainbow':70,
   'hat:crown':30,'hat:witch':35,'hat:flower':15,'hat:ears':20,'gback:cloak':30,'gback:fairy':50,'wand:star':25,'wand:heart':25,'wand:crystal':40,
-  'gstyle:tails':15,'gstyle:puffs':15,'gstyle:bob':15,'gstyle:braid':15,'gstyle:long':20,'gcol:#ff7fbf':15,'gcol:#5fb2ff':15,'gcol:#9a7bf0':15,'gcol:#3fcfae':15,'gcol:#f5c542':15};
+  'gstyle:tails':15,'gstyle:puffs':15,'gstyle:bob':15,'gstyle:braid':15,'gstyle:long':20,'gcol:#ff7fbf':15,'gcol:#5fb2ff':15,'gcol:#9a7bf0':15,'gcol:#3fcfae':15,'gcol:#f5c542':15,
+  'outfit:6':25,'outfit:7':25,'outfit:8':45,'outfit:9':35,
+  'top:t1':15,'top:t3':15,'top:t4':15,'top:t5':30,'top:t6':30,'top:t7':25,'top:t8':25,'top:t9':40,
+  'bot:sh1':15,'bot:sh2':20,'bot:sh3':20,'bot:sh4':20,'bot:sh5':20,'bot:pa1':15,'bot:pa2':25,'bot:pa3':20,'bot:pa4':20,'bot:pa5':25,
+  'bot:sk0':30,'bot:sk2':20,'bot:sk3':20,'bot:sk4':20,'bot:sk5':35,
+  'shoes:run':15,'shoes:sand':15,'shoes:rain':20,'shoes:flats':20,'shoes:tall':30,'shoes:gold':45,'shoes:bunny':35,
+  'socks:stripe':15,'socks:knee':10,'socks:tpink':15,'socks:twhite':10,'socks:tstar':25,
+  'glasses:heart':20,'glasses:star':20,'glasses:sun':25,'glasses:cat':25};
 const has=k=>!PRICE[k]||S.owned.includes(k);
 function buy(k){
   if(has(k))return true;
