@@ -77,6 +77,14 @@ button{cursor:pointer}
 .topbar h1{font-size:1.25rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pill{border:2px solid var(--panel-edge);background:var(--paper);border-radius:999px;padding:.3rem .8rem;font-weight:800}
 .pill:hover{border-color:var(--accent)}
+.topbar{position:relative;z-index:50}
+.langsw{position:relative}
+.langmenu{position:absolute;right:0;top:calc(100% + .35rem);z-index:60;display:flex;flex-direction:column;min-width:9.5rem;padding:.3rem;background:var(--panel);border:2px solid var(--panel-edge);border-radius:16px;box-shadow:0 10px 26px rgba(40,20,70,.22)}
+.langmenu button{border:0;background:none;text-align:left;padding:.55rem .8rem;border-radius:10px;font-weight:800;cursor:pointer}
+.langmenu button:hover,.langmenu button:focus-visible{background:var(--paper)}
+.langmenu button[aria-checked="true"]{color:var(--accent)}
+.langmenu button[aria-checked="true"]::after{content:" ✓"}
+@media (max-width:1100px){#btnLang .globe{display:none}}
 .starbox{font-weight:800;white-space:nowrap}
 .meters{display:flex;gap:.5rem}
 .meter{display:flex;align-items:center;gap:.25rem;font-size:.8rem;font-weight:800}
@@ -387,7 +395,8 @@ main{flex:1;min-height:0;position:relative}
 .medal i{font-style:normal;font-size:1.7rem;line-height:1.1}
 .medal small{color:var(--ink-soft);font-size:.78rem}
 
-@media (max-width:520px){.topbar{gap:.3rem;padding:.4rem .5rem}.topbar h1{display:none}.topbar .pill{padding:.25rem .55rem}.starbox{font-size:.88rem}.topbar::before{content:"";flex:1;order:1}#btnBack{order:0}.sky,.starbox,#btnSnd{order:2}}
+@media (max-width:520px){body[data-scr=hub] .langsw,body[data-scr=stable] .langsw,body[data-scr=house] .langsw,body[data-scr=track] .langsw,body[data-scr=map] .langsw,body[data-scr=up] .langsw,body[data-scr=level] .langsw{display:none}}
+@media (max-width:520px){.topbar{gap:.3rem;padding:.4rem .5rem}.topbar h1{display:none}.topbar .pill{padding:.25rem .55rem}.starbox{font-size:.88rem}.topbar::before{content:"";flex:1;order:1}#btnBack{order:0}.sky,.starbox,#btnSnd,.langsw{order:2}#btnLang .globe{display:none}.topbar #btnLang{padding:.25rem .5rem}}
 
 @media (prefers-reduced-motion: reduce){
   .uni .tail,.uni .eye-open,.uni .wing,.cloud,.ob-magic svg,.ob-star svg{animation:none}
@@ -422,33 +431,34 @@ main{flex:1;min-height:0;position:relative}
     <span class="starbox" id="starBox" hidden>⭐ <span id="starN">0</span></span>
     <span class="starbox" id="ptBox" hidden>💎 <span id="ptN">0</span></span>
     <button class="pill" id="btnSnd" aria-label="Выключить звук">🔊</button>
+    <div class="langsw"><button class="pill" id="btnLang" aria-haspopup="true" aria-expanded="false"><span class="globe" aria-hidden="true">🌐 </span><span id="langCur">RU</span></button><div class="langmenu" id="langMenu" role="menu" hidden><button role="menuitemradio" data-l="ru" lang="ru">Русский</button><button role="menuitemradio" data-l="de" lang="de">Deutsch</button><button role="menuitemradio" data-l="en" lang="en">English</button></div></div>
   </header>
   <main>
     <section class="screen title skybg" data-screen="title">
       <div class="art" id="titleArt"></div>
-      <h2>Долина единорогов</h2>
-      <p>Выбери наездницу, единорога и кота-помощника, ухаживай за единорогом и расколдуй долину от злючек.</p>
+      <h2 data-i18n="app">Долина единорогов</h2>
+      <p data-i18n="intro">Выбери наездницу, единорога и кота-помощника, ухаживай за единорогом и расколдуй долину от злючек.</p>
       <div class="row" id="titleBtns"></div>
     </section>
 
     <section class="screen pick skybg" data-screen="girl">
-      <h2>Кем ты будешь играть?</h2>
+      <h2 data-i18n="girl.h">Кем ты будешь играть?</h2>
       <div class="cards" id="girlCards"></div>
-      <div class="row"><button class="btn" id="girlNext" disabled>Дальше</button></div>
+      <div class="row"><button class="btn" id="girlNext" data-i18n="next" disabled>Дальше</button></div>
     </section>
 
     <section class="screen pick skybg" data-screen="uni">
-      <h2>Выбери своего единорога</h2>
+      <h2 data-i18n="uni.h">Выбери своего единорога</h2>
       <div class="cards three" id="uniCards"></div>
-      <label class="namebox">Как её зовут? <input id="uniName" maxlength="14" autocomplete="off"></label>
-      <div class="row"><button class="btn quiet" id="uniBack">Назад</button><button class="btn" id="uniNext" disabled>Играть</button></div>
+      <label class="namebox"><span data-i18n="uni.name">Как её зовут?</span> <input id="uniName" maxlength="14" autocomplete="off"></label>
+      <div class="row"><button class="btn quiet" id="uniBack" data-i18n="back">Назад</button><button class="btn" id="uniNext" data-i18n="play" disabled>Играть</button></div>
     </section>
 
     <section class="screen pick skybg" data-screen="cat">
-      <h2>Выбери кота-помощника</h2>
+      <h2 data-i18n="cat.h">Выбери кота-помощника</h2>
       <div class="cards" id="catCards"></div>
-      <p class="note">Кот бежит рядом на уровнях, подбирает звёзды, а когда подрастёт — усиливает магию, добавляет жизнь и ставит щит.</p>
-      <div class="row"><button class="btn" id="catNext" disabled>Готово</button></div>
+      <p class="note" data-i18n="cat.note">Кот бежит рядом на уровнях, подбирает звёзды, а когда подрастёт — усиливает магию, добавляет жизнь и ставит щит.</p>
+      <div class="row"><button class="btn" id="catNext" data-i18n="done" disabled>Готово</button></div>
     </section>
 
     <section class="screen" data-screen="hub"><div class="hub" id="hub"></div></section>
@@ -470,7 +480,7 @@ main{flex:1;min-height:0;position:relative}
       <div class="room" id="hsScene">
         <div id="hsBg"></div>
         <div class="who" id="hsGirl"></div>
-        <div class="sleep" id="hsSleep"><span>🌙</span>Сладких снов…</div>
+        <div class="sleep" id="hsSleep"><span>🌙</span><span data-i18n="sleep">Сладких снов…</span></div>
       </div>
       <div class="tray">
         <div class="opts" id="hsOpts"></div>
@@ -491,22 +501,22 @@ main{flex:1;min-height:0;position:relative}
           <div id="trkFx"></div>
         </div>
         <div class="hud"><span class="cnt">⭐ <span id="runStars">0</span></span><div class="prog"><i id="runProg"></i></div></div>
-        <div class="ctrl"><button id="btnTrick">Трюк</button><button id="btnJump">Прыжок</button></div>
+        <div class="ctrl"><button id="btnTrick" data-i18n="trick">Трюк</button><button id="btnJump" data-i18n="jump">Прыжок</button></div>
         <div class="over" id="trkOver"><div class="sheet" id="trkSheet"></div></div>
       </div>
     </section>
     <section class="screen" data-screen="map">
       <div class="hub" id="map"></div>
-      <div class="mapnav"><button class="pill" id="mapPrev" aria-label="Предыдущие уровни">‹</button><span id="mapName"></span><button class="pill" id="mapNext" aria-label="Следующие уровни">›</button></div>
-      <button class="btn fab" id="mapUp">Прокачка</button>
+      <div class="mapnav"><button class="pill" id="mapPrev" data-i18n-aria="map.prev" aria-label="Предыдущие уровни">‹</button><span id="mapName"></span><button class="pill" id="mapNext" data-i18n-aria="map.next" aria-label="Следующие уровни">›</button></div>
+      <button class="btn fab" id="mapUp" data-i18n="up">Прокачка</button>
       <div class="over" id="mapOver"><div class="sheet" id="mapSheet"></div></div>
     </section>
 
     <section class="screen pick skybg" data-screen="up">
-      <h2>Прокачка</h2>
-      <p class="ptline">У тебя 💎 <span id="upPts">0</span> — очки дают за уровни на карте</p>
+      <h2 data-i18n="up">Прокачка</h2>
+      <p class="ptline"><span data-i18n="up.have">У тебя</span> 💎 <span id="upPts">0</span> <span data-i18n="up.hint">— очки дают за уровни на карте</span></p>
       <div class="upg" id="upCards"></div>
-      <h2 class="mh">Медали <small id="upMedN"></small></h2>
+      <h2 class="mh"><span data-i18n="medals">Медали</span> <small id="upMedN"></small></h2>
       <div class="medals" id="upMedals"></div>
     </section>
 
@@ -521,12 +531,12 @@ main{flex:1;min-height:0;position:relative}
         </div>
         <div class="hud" id="lvHud">
           <span class="cnt" id="lvHearts"></span><span class="cnt">💎 <span id="lvPts">0</span></span><span class="cnt">⭐ <span id="lvStars">0</span></span>
-          <span style="flex:1"></span><button class="cnt" id="lvMagic" aria-label="Сменить магию"></button>
+          <span style="flex:1"></span><button class="cnt" id="lvMagic" data-i18n-aria="magic.swap" aria-label="Сменить магию"></button>
         </div>
         <div class="bossbar" id="lvBoss" hidden><span id="lvBossName"></span><div><i id="lvBossHp"></i></div></div>
         <div class="pad" id="lvPad">
           <div class="mv" id="lvMv"><span>◀</span><span>▶</span></div>
-          <div><button data-k="dash">Рывок</button><button data-k="fire">Магия</button><button data-k="jump">Прыжок</button></div>
+          <div><button data-k="dash" data-i18n="dash">Рывок</button><button data-k="fire" data-i18n="magic">Магия</button><button data-k="jump">Прыжок</button></div>
         </div>
         <div class="over" id="lvOver"><div class="sheet" id="lvSheet"></div></div>
       </div>
@@ -547,6 +557,237 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const STAR='M0 -10 L2.5 -3.4 L9.5 -3.1 L4 1.3 L5.9 8.1 L0 4.2 L-5.9 8.1 L-4 1.3 L-9.5 -3.1 L-2.5 -3.4Z';
+
+/* ---------- i18n ---------- */
+const LANGS=['ru','de','en'],LKEY='unicorn-valley-lang';
+const I18N={
+ru:{
+  app:'Долина единорогов','back.yard':'‹ Во двор','back.map':'‹ На карту','snd.off':'Выключить звук','snd.on':'Включить звук',lang:'Язык',
+  intro:'Выбери наездницу, единорога и кота-помощника, ухаживай за единорогом и расколдуй долину от злючек.',
+  'girl.h':'Кем ты будешь играть?',next:'Дальше','uni.h':'Выбери своего единорога','uni.name':'Как её зовут?',back:'Назад',play:'Играть',
+  'cat.h':'Выбери кота-помощника','cat.note':'Кот бежит рядом на уровнях, подбирает звёзды, а когда подрастёт — усиливает магию, добавляет жизнь и ставит щит.',done:'Готово',
+  sleep:'Сладких снов…',trick:'Трюк',jump:'Прыжок',dash:'Рывок',magic:'Магия','map.prev':'Предыдущие уровни','map.next':'Следующие уровни',
+  up:'Прокачка','up.have':'У тебя','up.hint':'— очки дают за уровни на карте',medals:'Медали','magic.swap':'Сменить магию',
+  'title.cont':'Продолжить','title.new':'Начать заново','title.start':'Начать игру','title.confirm':'Начать заново? Уровни, прокачка и наряды сотрутся.','title.yes':'Да, начать заново',cancel:'Отмена',
+  friends:(g,u)=>`${g} и ${u} теперь подруги!`,
+  'hub.map':'Карта приключений','hub.mapLbl':'Карта','hub.pals':(g,u,c)=>`${g}, ${u} и ${c}`,
+  'hub.hi':u=>[`${u} рада тебя видеть!`,'Куда пойдём сегодня?',`${u} хочет играть!`],
+  'st.pet':u=>`Води пальцем или мышкой по единорогу — ${u} любит, когда её гладят.`,'st.wash':'Зажми и три губкой по единорогу, пока пятна не исчезнут.',
+  'st.color':'Цвет','st.head':'На голову','st.neck':'На шею','st.back':'На спину','st.feet':'Копыта','st.trail':'След',
+  'say.hungry':'Я проголодалась…','say.bath':'Хочу купаться!','say.tired':'Я устала, хочу поспать…','say.pet':'Погладь меня!',
+  'say.idle':['Побежали на трек!','Сделай мне причёску!','Ты лучшая подруга!'],'say.pretty':'Как красиво!','say.full':'Ой, я уже наелась!',
+  'say.yum':['Ням-ням!','Вкуснятина!','Спасибо!'],'say.happiest':'Я самая счастливая!','say.shiny':'Я сияю чистотой!',
+  'hs.own':'Своя','hs.sleep':'Лечь спать','hs.repick':'Выбрать других героев','hs.menu':'В главное меню','hs.morning':u=>`Доброе утро! ${u} отдохнула и полна сил.`,
+  'trk.finish':'ФИНИШ','trk.tip':'Прыгни два раза!','trk.tiredH':u=>`${u} устала`,'trk.tiredP':'Пусть отдохнёт дома или перекусит в конюшне — и снова на трек.',
+  toHouse:'В дом',toStable:'В конюшню','trk.introH':'На старт!',
+  'trk.introL':'<li><b>Прыжок</b> — пробел или касание экрана.</li><li><b>Два прыжка подряд</b> — высокий прыжок через волшебный барьер.</li><li><b>Трюк</b> — клавиша X: в воздухе сальто, на земле свечка.</li><li>Собирай звёзды и не наступай в лужи.</li>',
+  'trk.go':'Поехали','pop.almost':'Почти!','pop.flip':'Сальто! +2','pop.rear':'Свечка! +1','pop.higher':'Нужно выше!','pop.oops':'Ой!','pop.ring':'Сквозь кольцо! +3','pop.splash':'Плюх!',
+  'trk.record':'Новый рекорд!','trk.fin':'Финиш!','trk.clean':'Чистых прыжков','trk.tricks':'Трюков','trk.mud':'Луж','trk.mudHint':' — пора в конюшню мыться','trk.best':'Рекорд','trk.rest':'Отдохнуть дома','trk.again':'Ещё раз',
+  'shop.need':c=>`Нужно ${c} ⭐. Звёзды собирают на треке и на уровнях.`,'shop.got':c=>`Открыто за ${c} ⭐`,
+  'cat.toast':c=>`${c} теперь твой помощник!`,'medal.toast':n=>`Медаль «${n}»! +10 ⭐`,
+  'up.for':(l,c)=>`${l} за ${c} 💎`,'up.max':'Максимум','up.catLv':'Уровень кота','up.lvl':(i,x)=>`Уровень ${i}: ${x}`,
+  'up.magnet':'Магнит','up.magnetD':'кот притягивает звёзды издалека','up.claws':'Когти','up.clawsD':'кот сам бьёт злючек рядом',
+  'up.improve':'Улучшить','up.boost':'Усилить','up.teach':'Научить','up.swapcat':'Выбрать другого кота',
+  'up.power':'Сила магии','up.powerD':'каждый уровень — выстрел сильнее','up.chosen':'Выбрана','up.choose':'Выбрать','up.unlock':c=>`Открыть за ${c} 💎`,
+  'up.speed':'Скорость','up.speedD':'быстрее бежит на уровнях','up.faster':'Ускорить','up.lives':'Жизни','up.livesD':'сколько ударов выдержит','up.add':'Добавить',
+  'up.ram':'Таран','up.ramD':'рывок сбивает злючек и чаще готов','up.j3':'Третий прыжок','up.j3D':'ещё один прыжок в воздухе','up.has':'Есть',
+  'up.medN':(a,b)=>`${a} из ${b}`,'up.lack':n=>`Не хватает очков: нужно ${n} 💎. Их дают за уровни на карте.`,'up.catTo':(c,l)=>`${c}: уровень ${l}`,
+  'up.j3T':'Теперь в воздухе можно прыгнуть трижды','up.magT':n=>`Открыта магия: ${n}`,
+  'map.lvl':(n,x)=>`Уровень ${n}: ${x}`,'map.name':(m,a,b)=>`${m}: уровни ${a}–${b}`,'map.first':n=>`Сначала пройди уровень ${n}`,
+  'map.boss':b=>`В конце ждёт ${b}.`,'map.fly':'Этот уровень — полёт на крыльях.',
+  'map.goals':'<li>★ дойти до волшебных ворот</li><li>★ найти сундук</li><li>★ не потерять ни одной жизни</li>',close:'Закрыть',
+  'lv.boss':b=>`В конце уровня ждёт ${b}. Расколдуй его магией.`,
+  'lv.fly':u=>`<li>Это полёт: ${u} летит сама, а ты ведёшь её <b>стрелками</b> или A, D, W, S во все стороны.</li><li><b>Магия</b> — пробел или X, <b>рывок</b> — Shift.</li><li>На телефоне — круглый джойстик и кнопки внизу экрана.</li><li>Злючек лучше облетать или расколдовывать издалека.</li>`,
+  'lv.run':'<li><b>Бежать</b> — стрелки влево и вправо или A и D.</li><li><b>Прыжок</b> — пробел, в воздухе можно прыгнуть ещё раз.</li><li><b>Магия</b> — клавиша X, <b>рывок</b> — Shift, сменить магию — Q.</li><li>На телефоне всё это — кнопки внизу экрана.</li><li>Флажок запоминает место: если жизни кончатся, можно продолжить с него.</li>',
+  'lv.go':'Вперёд',toMap:'На карту',
+  'pop.bossDown':(b,p)=>`${b}: чары сняты! +${p} 💎`,'pop.shield':'Мяу! Щит!','pop.jump':'Прыгай!','pop.flag':'Флажок!','pop.beware':'Берегись!','pop.chest':n=>`Сундук! +${n} 💎`,'pop.meow':'Мяу!',
+  'lv.all':'Вся страна расколдована!','lv.valley':'Долина расколдована!','lv.done':'Уровень пройден!','lv.pts':'Очки','lv.stars':'Звёзды',
+  'lv.chest':'Сундук найден','lv.noChest':'Сундук остался ненайденным','lv.noLoss':'Ни одной потерянной жизни','lv.lost':'Жизни терялись — третья звезда ждёт',
+  'lv.next':'Следующий уровень','lv.over':'Жизни закончились','lv.kept':(p,s)=>`Собранное остаётся у тебя: ${p} 💎 и ${s} ⭐.`,
+  'lv.cpHint':' Флажок пройден — можно продолжить с него.','lv.fromCp':'С флажка','lv.retry':'Сначала'
+  /* data lists are captured from the original arrays at boot */
+},
+en:{
+  app:'Unicorn Valley','back.yard':'‹ Yard','back.map':'‹ Map','snd.off':'Mute sound','snd.on':'Turn sound on',lang:'Language',
+  intro:'Choose a rider, a unicorn and a helper cat, take care of your unicorn and free the valley from the grumpies.',
+  'girl.h':'Who will you play as?',next:'Next','uni.h':'Choose your unicorn','uni.name':'What’s her name?',back:'Back',play:'Play',
+  'cat.h':'Choose a helper cat','cat.note':'The cat runs beside you in levels and picks up stars. As it grows, it boosts your magic, adds a life and puts up a shield.',done:'Done',
+  sleep:'Sweet dreams…',trick:'Trick',jump:'Jump',dash:'Dash',magic:'Magic','map.prev':'Previous levels','map.next':'Next levels',
+  up:'Upgrades','up.have':'You have','up.hint':'— you earn points by beating levels on the map',medals:'Medals','magic.swap':'Change magic',
+  'title.cont':'Continue','title.new':'Start over','title.start':'Start game','title.confirm':'Start over? Your levels, upgrades and outfits will be erased.','title.yes':'Yes, start over',cancel:'Cancel',
+  friends:(g,u)=>`${g} and ${u} are friends now!`,
+  'hub.map':'Adventure map','hub.mapLbl':'Map','hub.pals':(g,u,c)=>`${g}, ${u} and ${c}`,
+  'hub.hi':u=>[`${u} is happy to see you!`,'Where shall we go today?',`${u} wants to play!`],
+  'st.pet':u=>`Move your finger or mouse over the unicorn — ${u} loves being petted.`,'st.wash':'Hold and scrub the unicorn with the sponge until the spots are gone.',
+  'st.color':'Color','st.head':'Head','st.neck':'Neck','st.back':'Back','st.feet':'Hooves','st.trail':'Trail',
+  'say.hungry':'I’m hungry…','say.bath':'I want a bath!','say.tired':'I’m tired, I want to sleep…','say.pet':'Pet me!',
+  'say.idle':['Let’s run to the track!','Do my hair!','You’re my best friend!'],'say.pretty':'So pretty!','say.full':'Oh, I’m already full!',
+  'say.yum':['Yum-yum!','Delicious!','Thank you!'],'say.happiest':'I’m the happiest unicorn ever!','say.shiny':'I’m sparkling clean!',
+  'hs.own':'Own','hs.sleep':'Go to sleep','hs.repick':'Choose other heroes','hs.menu':'Main menu','hs.morning':u=>`Good morning! ${u} has rested and is full of energy.`,
+  'trk.finish':'FINISH','trk.tip':'Jump twice!','trk.tiredH':u=>`${u} is tired`,'trk.tiredP':'Let her rest at home or have a snack in the stable — then back to the track.',
+  toHouse:'Go home',toStable:'To the stable','trk.introH':'Ready, set, go!',
+  'trk.introL':'<li><b>Jump</b> — space bar or tap the screen.</li><li><b>Two jumps in a row</b> — a high jump over the magic barrier.</li><li><b>Trick</b> — X key: a flip in the air, rearing up on the ground.</li><li>Collect stars and don’t step in puddles.</li>',
+  'trk.go':'Let’s go','pop.almost':'Almost!','pop.flip':'Flip! +2','pop.rear':'Rearing! +1','pop.higher':'Higher!','pop.oops':'Oops!','pop.ring':'Through the ring! +3','pop.splash':'Splash!',
+  'trk.record':'New record!','trk.fin':'Finish!','trk.clean':'Clean jumps','trk.tricks':'Tricks','trk.mud':'Puddles','trk.mudHint':' — time for a wash in the stable','trk.best':'Record','trk.rest':'Rest at home','trk.again':'Again',
+  'shop.need':c=>`You need ${c} ⭐. Collect stars on the track and in levels.`,'shop.got':c=>`Unlocked for ${c} ⭐`,
+  'cat.toast':c=>`${c} is your helper now!`,'medal.toast':n=>`Medal “${n}”! +10 ⭐`,
+  'up.for':(l,c)=>`${l} for ${c} 💎`,'up.max':'Max','up.catLv':'Cat level','up.lvl':(i,x)=>`Level ${i}: ${x}`,
+  'up.magnet':'Magnet','up.magnetD':'the cat pulls in stars from far away','up.claws':'Claws','up.clawsD':'the cat hits nearby grumpies on its own',
+  'up.improve':'Upgrade','up.boost':'Boost','up.teach':'Learn','up.swapcat':'Choose another cat',
+  'up.power':'Magic power','up.powerD':'every level makes your shots stronger','up.chosen':'Selected','up.choose':'Select','up.unlock':c=>`Unlock for ${c} 💎`,
+  'up.speed':'Speed','up.speedD':'runs faster in levels','up.faster':'Speed up','up.lives':'Lives','up.livesD':'how many hits she can take','up.add':'Add',
+  'up.ram':'Ram','up.ramD':'the dash knocks grumpies over and is ready more often','up.j3':'Triple jump','up.j3D':'one more jump in the air','up.has':'Got it',
+  'up.medN':(a,b)=>`${a} of ${b}`,'up.lack':n=>`Not enough points: you need ${n} 💎. You get them for levels on the map.`,'up.catTo':(c,l)=>`${c}: level ${l}`,
+  'up.j3T':'Now you can jump three times in the air','up.magT':n=>`Magic unlocked: ${n}`,
+  'map.lvl':(n,x)=>`Level ${n}: ${x}`,'map.name':(m,a,b)=>`${m}: levels ${a}–${b}`,'map.first':n=>`Beat level ${n} first`,
+  'map.boss':b=>`${b} awaits at the end.`,'map.fly':'This level is a flight on wings.',
+  'map.goals':'<li>★ reach the magic gate</li><li>★ find the chest</li><li>★ don’t lose a single life</li>',close:'Close',
+  'lv.boss':b=>`${b} awaits at the end of the level. Break the spell with your magic!`,
+  'lv.fly':u=>`<li>This is a flight: ${u} flies on her own, and you steer her in every direction with the <b>arrow keys</b> or A, D, W, S.</li><li><b>Magic</b> — space or X, <b>dash</b> — Shift.</li><li>On a phone — the round joystick and the buttons at the bottom of the screen.</li><li>It’s best to fly around grumpies or break their spell from afar.</li>`,
+  'lv.run':'<li><b>Run</b> — left and right arrows or A and D.</li><li><b>Jump</b> — space; you can jump once more in the air.</li><li><b>Magic</b> — X key, <b>dash</b> — Shift, change magic — Q.</li><li>On a phone, all of this is on the buttons at the bottom of the screen.</li><li>A flag remembers your spot: if you run out of lives, you can continue from it.</li>',
+  'lv.go':'Go!',toMap:'To the map',
+  'pop.bossDown':(b,p)=>`${b}: spell broken! +${p} 💎`,'pop.shield':'Meow! Shield!','pop.jump':'Jump!','pop.flag':'Flag!','pop.beware':'Watch out!','pop.chest':n=>`Chest! +${n} 💎`,'pop.meow':'Meow!',
+  'lv.all':'The whole land is free!','lv.valley':'The valley is free!','lv.done':'Level complete!','lv.pts':'Points','lv.stars':'Stars',
+  'lv.chest':'Chest found','lv.noChest':'The chest is still hidden','lv.noLoss':'Not a single life lost','lv.lost':'Lives were lost — the third star is waiting',
+  'lv.next':'Next level','lv.over':'Out of lives','lv.kept':(p,s)=>`You keep what you collected: ${p} 💎 and ${s} ⭐.`,
+  'lv.cpHint':' You reached a flag — you can continue from there.','lv.fromCp':'From the flag','lv.retry':'From the start',
+  girls:[['Mila','brave and full of ideas'],['Alya','cheerful singer'],['Taya','clever dreamer'],['Nika','fast as the wind']],
+  outfits:['Turquoise','Sunny','Lilac','Coral','Pink','Sky blue'],
+  unis:[['Marshmallow','cloud magic'],['Sparkle','spark magic'],['Frosty','snow magic'],['Blueberry','berry magic'],['Minty','forest magic'],['Midnight','star magic']],
+  horns:['Gold','Pink','Light blue','Lilac','Mint','Silver','Rainbow'],
+  manes:['Loose','Braid','Buns','Curls'],tails:['Loose','Braid','Fluffy','With ribbons'],
+  heads:['Nothing','Crown','Flower wreath','Bow'],necks:['Nothing','Beads','Scarf','Cape'],
+  backs:['Nothing','Blanket','Starry blanket','Saddle','Wings'],feet:['Plain','Golden horseshoes'],
+  trails:['None','Glitter','Hearts','Rainbow'],mcols:['Own','Pink','Ocean','Sunset','Night','Rainbow'],
+  foods:['Apple','Carrot','Strawberry','Rainbow cupcake'],tools:['Pet','Feed','Wash','Mane','Tail','Horn','Outfit'],
+  titles:{title:'Unicorn Valley',girl:'Unicorn Valley',uni:'Unicorn Valley',cat:'Unicorn Valley',hub:'Yard',stable:'Stable',house:'House',track:'Track',map:'Valley map',level:'Adventure',up:'Upgrades'},
+  meters:['Joy','Clean','Fed','Energy'],
+  hats:['No hat','Crown','Magic hat','Flower wreath','Cat ears'],gbacks:['Nothing','Cloak','Fairy wings'],
+  wands:['No wand','Star','Heart','Crystal'],gstyles:['Pigtails','Buns','Bob','Braid','Long'],
+  gcols:['Own','Pink','Light blue','Lilac','Mint','Gold'],
+  htabs:['Dress','Hat','Back','Wand','Hairstyle','Hair color','Sleep & menu'],
+  cats:[['Fluffy','soft and brave'],['Ginger','nimble star hunter'],['Cloudy','quiet and watchful'],['Sooty','sees in the dark']],
+  catlv:['picks up stars nearby','+1 magic power','+1 life','shield: blocks one hit every 25 seconds','another +1 magic, shield recharges in 12 seconds'],
+  magics:{spark:['Sparks','fast shots'],ice:['Ice','freezes grumpies'],rainbow:['Rainbow','flies through several grumpies'],bolt:['Lightning','jumps to nearby grumpies'],fall:['Starfall','stars fall from above and hit an area']},
+  medalList:[['First step','beat the first level'],['Storm tamer','break the spell on Grumble the Storm Cloud'],['Valley heroine','break the spell on Gloom the Dragon'],
+    ['Mountain climber','beat level 15'],['Light in the cave','beat level 20'],['Queen of the sky','beat level 25'],['Star queen','beat all 30 levels'],
+    ['Three stars','get ★★★ on 5 levels'],['Not a scratch','get ★★★ on 15 levels'],['Treasure hunter','find chests on 10 levels'],
+    ['A hundred butterflies','free 100 grumpies'],['Fashionista','unlock 8 items with stars'],['Best friend','raise your cat to level 5'],
+    ['Sorceress','unlock every kind of magic'],['Squeaky clean','wash the unicorn until it sparkles 5 times'],['Track record','collect 40 stars in one run']],
+  phases:['Morning','Day','Evening','Night'],wxs:['clear','windy','cloudy','rain'],
+  lvn:['Flower Path','Little Streams','Mushroom Meadow','Windy Hill','Thunder Pass','Twilight Forest','Firefly Grove','Crystal Bridge','Path to the Castle','Castle of Shadows',
+    'Snowy Path','Icy Brook','Icicles','Flight over the Blizzard','Ice Peak','Cave Entrance','Crystal Hall','Glowing Mushrooms','Flight over the Underground Lake','Heart of the Mountain',
+    'Cloud Steps','Rainbow Bridge','Windy Islands','Flight among the Clouds','Thunder Throne','Starry Path','Moon Hills','Comet Tail','Flight through the Nebula','Black Star'],
+  boss:{5:'Grumble the Storm Cloud',10:'Gloom the Dragon',15:'Chill the Ice Giant',20:'Rumble the Stone Golem',25:'Whirl the Stormbird',30:'Nocta, Queen of Shadows'},
+  mapn:['Valley','Mountains & Caves','Skies']
+},
+de:{
+  app:'Einhorntal','back.yard':'‹ Zum Hof','back.map':'‹ Zur Karte','snd.off':'Ton aus','snd.on':'Ton an',lang:'Sprache',
+  intro:'Wähle eine Reiterin, ein Einhorn und eine Helferkatze, pflege dein Einhorn und befreie das Tal von den Grummlis.',
+  'girl.h':'Wer möchtest du sein?',next:'Weiter','uni.h':'Wähle dein Einhorn','uni.name':'Wie heißt sie?',back:'Zurück',play:'Spielen',
+  'cat.h':'Wähle eine Helferkatze','cat.note':'Die Katze läuft in den Leveln neben dir her und sammelt Sterne. Wenn sie wächst, verstärkt sie deine Magie, schenkt dir ein Leben und macht einen Schild.',done:'Fertig',
+  sleep:'Träum süß…',trick:'Trick',jump:'Springen',dash:'Sprint',magic:'Magie','map.prev':'Vorherige Level','map.next':'Nächste Level',
+  up:'Upgrades','up.have':'Du hast','up.hint':'— Punkte gibt es für Level auf der Karte',medals:'Medaillen','magic.swap':'Magie wechseln',
+  'title.cont':'Weiterspielen','title.new':'Neu anfangen','title.start':'Spiel starten','title.confirm':'Neu anfangen? Level, Upgrades und Outfits werden gelöscht.','title.yes':'Ja, neu anfangen',cancel:'Abbrechen',
+  friends:(g,u)=>`${g} und ${u} sind jetzt Freundinnen!`,
+  'hub.map':'Abenteuerkarte','hub.mapLbl':'Karte','hub.pals':(g,u,c)=>`${g}, ${u} und ${c}`,
+  'hub.hi':u=>[`${u} freut sich, dich zu sehen!`,'Wohin gehen wir heute?',`${u} will spielen!`],
+  'st.pet':u=>`Fahr mit dem Finger oder der Maus über das Einhorn — ${u} wird so gern gestreichelt.`,'st.wash':'Halte gedrückt und schrubbe das Einhorn mit dem Schwamm, bis die Flecken weg sind.',
+  'st.color':'Farbe','st.head':'Kopf','st.neck':'Hals','st.back':'Rücken','st.feet':'Hufe','st.trail':'Spur',
+  'say.hungry':'Ich hab Hunger…','say.bath':'Ich will baden!','say.tired':'Ich bin müde, ich will schlafen…','say.pet':'Streichel mich!',
+  'say.idle':['Lass uns zur Rennbahn laufen!','Mach mir eine Frisur!','Du bist meine beste Freundin!'],'say.pretty':'Wie schön!','say.full':'Oh, ich bin schon satt!',
+  'say.yum':['Mjam-mjam!','Lecker!','Danke!'],'say.happiest':'Ich bin das glücklichste Einhorn!','say.shiny':'Ich glänze vor Sauberkeit!',
+  'hs.own':'Eigene','hs.sleep':'Schlafen gehen','hs.repick':'Andere Helden wählen','hs.menu':'Zum Hauptmenü','hs.morning':u=>`Guten Morgen! ${u} hat sich ausgeruht und ist voller Kraft.`,
+  'trk.finish':'ZIEL','trk.tip':'Zweimal springen!','trk.tiredH':u=>`${u} ist müde`,'trk.tiredP':'Lass sie zu Hause ausruhen oder im Stall etwas fressen — und dann zurück auf die Rennbahn.',
+  toHouse:'Ins Haus',toStable:'In den Stall','trk.introH':'Auf die Plätze!',
+  'trk.introL':'<li><b>Springen</b> — Leertaste oder auf den Bildschirm tippen.</li><li><b>Zweimal hintereinander</b> — hoher Sprung über die Zauberschranke.</li><li><b>Trick</b> — Taste X: in der Luft ein Salto, am Boden aufsteigen.</li><li>Sammle Sterne und tritt nicht in Pfützen.</li>',
+  'trk.go':'Los geht’s','pop.almost':'Fast!','pop.flip':'Salto! +2','pop.rear':'Aufsteigen! +1','pop.higher':'Höher!','pop.oops':'Hoppla!','pop.ring':'Durch den Ring! +3','pop.splash':'Platsch!',
+  'trk.record':'Neuer Rekord!','trk.fin':'Ziel!','trk.clean':'Saubere Sprünge','trk.tricks':'Tricks','trk.mud':'Pfützen','trk.mudHint':' — ab in den Stall zum Waschen','trk.best':'Rekord','trk.rest':'Zu Hause ausruhen','trk.again':'Noch mal',
+  'shop.need':c=>`Du brauchst ${c} ⭐. Sterne gibt es auf der Rennbahn und in den Leveln.`,'shop.got':c=>`Für ${c} ⭐ freigeschaltet`,
+  'cat.toast':c=>`${c} hilft dir jetzt!`,'medal.toast':n=>`Medaille „${n}“! +10 ⭐`,
+  'up.for':(l,c)=>`${l} für ${c} 💎`,'up.max':'Maximum','up.catLv':'Katzenlevel','up.lvl':(i,x)=>`Level ${i}: ${x}`,
+  'up.magnet':'Magnet','up.magnetD':'die Katze zieht Sterne von weit her an','up.claws':'Krallen','up.clawsD':'die Katze haut Grummlis in der Nähe selbst',
+  'up.improve':'Verbessern','up.boost':'Stärken','up.teach':'Lernen','up.swapcat':'Andere Katze wählen',
+  'up.power':'Zauberkraft','up.powerD':'jedes Level macht deine Schüsse stärker','up.chosen':'Gewählt','up.choose':'Wählen','up.unlock':c=>`Für ${c} 💎 freischalten`,
+  'up.speed':'Tempo','up.speedD':'läuft in den Leveln schneller','up.faster':'Schneller','up.lives':'Leben','up.livesD':'wie viele Treffer sie aushält','up.add':'Dazu',
+  'up.ram':'Rammen','up.ramD':'der Sprint wirft Grummlis um und ist öfter bereit','up.j3':'Dritter Sprung','up.j3D':'noch ein Sprung in der Luft','up.has':'Hast du',
+  'up.medN':(a,b)=>`${a} von ${b}`,'up.lack':n=>`Nicht genug Punkte: Du brauchst ${n} 💎. Die gibt es für Level auf der Karte.`,'up.catTo':(c,l)=>`${c}: Level ${l}`,
+  'up.j3T':'Jetzt kannst du in der Luft dreimal springen','up.magT':n=>`Neue Magie: ${n}`,
+  'map.lvl':(n,x)=>`Level ${n}: ${x}`,'map.name':(m,a,b)=>`${m}: Level ${a}–${b}`,'map.first':n=>`Schaffe zuerst Level ${n}`,
+  'map.boss':b=>`Am Ende wartet ${b}.`,'map.fly':'In diesem Level fliegst du mit Flügeln.',
+  'map.goals':'<li>★ das Zaubertor erreichen</li><li>★ die Truhe finden</li><li>★ kein einziges Leben verlieren</li>',close:'Schließen',
+  'lv.boss':b=>`Am Ende des Levels wartet ${b}. Brich den Zauber mit deiner Magie!`,
+  'lv.fly':u=>`<li>Das ist ein Flug: ${u} fliegt von selbst, und du lenkst sie mit den <b>Pfeiltasten</b> oder A, D, W, S in alle Richtungen.</li><li><b>Magie</b> — Leertaste oder X, <b>Sprint</b> — Shift.</li><li>Auf dem Handy — der runde Joystick und die Tasten unten am Bildschirm.</li><li>Fliege am besten um Grummlis herum oder entzaubere sie aus der Ferne.</li>`,
+  'lv.run':'<li><b>Laufen</b> — Pfeiltasten links und rechts oder A und D.</li><li><b>Springen</b> — Leertaste, in der Luft kannst du noch einmal springen.</li><li><b>Magie</b> — Taste X, <b>Sprint</b> — Shift, Magie wechseln — Q.</li><li>Auf dem Handy liegt das alles auf den Tasten unten am Bildschirm.</li><li>Ein Fähnchen merkt sich die Stelle: Wenn deine Leben ausgehen, kannst du dort weitermachen.</li>',
+  'lv.go':'Los!',toMap:'Zur Karte',
+  'pop.bossDown':(b,p)=>`${b}: Zauber gebrochen! +${p} 💎`,'pop.shield':'Miau! Schild!','pop.jump':'Spring!','pop.flag':'Fähnchen!','pop.beware':'Vorsicht!','pop.chest':n=>`Truhe! +${n} 💎`,'pop.meow':'Miau!',
+  'lv.all':'Das ganze Land ist entzaubert!','lv.valley':'Das Tal ist entzaubert!','lv.done':'Level geschafft!','lv.pts':'Punkte','lv.stars':'Sterne',
+  'lv.chest':'Truhe gefunden','lv.noChest':'Die Truhe ist noch versteckt','lv.noLoss':'Kein einziges Leben verloren','lv.lost':'Leben verloren — der dritte Stern wartet',
+  'lv.next':'Nächstes Level','lv.over':'Keine Leben mehr','lv.kept':(p,s)=>`Was du gesammelt hast, bleibt dir: ${p} 💎 und ${s} ⭐.`,
+  'lv.cpHint':' Du hast ein Fähnchen erreicht — dort kannst du weitermachen.','lv.fromCp':'Ab Fähnchen','lv.retry':'Von vorn',
+  girls:[['Mila','mutig und voller Ideen'],['Alja','fröhliche Sängerin'],['Taja','klug und verträumt'],['Nika','schnell wie der Wind']],
+  outfits:['Türkis','Sonnengelb','Flieder','Koralle','Rosa','Himmelblau'],
+  unis:[['Marshmallow','Wolkenzauber'],['Funkel','Funkenzauber'],['Flöckchen','Schneezauber'],['Blaubeere','Beerenzauber'],['Minzi','Waldzauber'],['Mitternacht','Sternenzauber']],
+  horns:['Gold','Rosa','Hellblau','Flieder','Mint','Silber','Regenbogen'],
+  manes:['Offen','Zopf','Dutts','Locken'],tails:['Offen','Zopf','Buschig','Mit Bändern'],
+  heads:['Nichts','Krone','Blumenkranz','Schleife'],necks:['Nichts','Perlenkette','Schal','Umhang'],
+  backs:['Nichts','Decke','Sternendecke','Sattel','Flügel'],feet:['Normal','Goldene Hufeisen'],
+  trails:['Keine','Glitzer','Herzen','Regenbogen'],mcols:['Eigene','Rosa','Meer','Abendrot','Nacht','Regenbogen'],
+  foods:['Apfel','Karotte','Erdbeere','Regenbogen-Muffin'],tools:['Streicheln','Füttern','Waschen','Mähne','Schweif','Horn','Anziehen'],
+  titles:{title:'Einhorntal',girl:'Einhorntal',uni:'Einhorntal',cat:'Einhorntal',hub:'Hof',stable:'Stall',house:'Haus',track:'Rennbahn',map:'Karte des Tals',level:'Abenteuer',up:'Upgrades'},
+  meters:['Freude','Sauber','Satt','Kraft'],
+  hats:['Kein Hut','Krone','Zauberhut','Blumenkranz','Katzenohren'],gbacks:['Nichts','Umhang','Feenflügel'],
+  wands:['Kein Zauberstab','Stern','Mit Herz','Kristall'],gstyles:['Zwei Zöpfchen','Dutts','Bob','Zopf','Lang'],
+  gcols:['Eigene','Rosa','Hellblau','Flieder','Mint','Gold'],
+  htabs:['Kleid','Hut','Rücken','Zauberstab','Frisur','Haarfarbe','Schlaf & Menü'],
+  cats:[['Flocke','weich und mutig'],['Fuchsi','jagt flink nach Sternen'],['Wölkchen','still und aufmerksam'],['Rußpfote','sieht im Dunkeln']],
+  catlv:['sammelt Sterne in der Nähe ein','+1 Zauberkraft','+1 Leben','Schild: wehrt alle 25 Sekunden einen Treffer ab','noch +1 Zauberkraft, Schild lädt in 12 Sekunden auf'],
+  magics:{spark:['Funken','schnelle Schüsse'],ice:['Eis','friert Grummlis ein'],rainbow:['Regenbogen','fliegt durch mehrere Grummlis'],bolt:['Blitz','springt auf Grummlis daneben über'],fall:['Sternregen','Sterne fallen von oben und treffen eine Fläche']},
+  medalList:[['Erster Schritt','das erste Level schaffen'],['Wolkenbändigerin','die Gewitterwolke Brummbär entzaubern'],['Heldin des Tals','den Drachen Finsternis entzaubern'],
+    ['Gipfelstürmerin','Level 15 schaffen'],['Licht in der Höhle','Level 20 schaffen'],['Herrin des Himmels','Level 25 schaffen'],['Sternenkönigin','alle 30 Level schaffen'],
+    ['Drei Sterne','★★★ in 5 Leveln holen'],['Ohne einen Kratzer','★★★ in 15 Leveln holen'],['Schatzsucherin','Truhen in 10 Leveln finden'],
+    ['Hundert Schmetterlinge','100 Grummlis entzaubern'],['Modeprinzessin','8 Sachen mit Sternen freischalten'],['Bester Freund','die Katze auf Level 5 bringen'],
+    ['Zauberin','alle Zauberarten freischalten'],['Blitzblank','das Einhorn 5-mal glänzend sauber waschen'],['Bahnrekord','40 Sterne in einem Lauf sammeln']],
+  phases:['Morgen','Tag','Abend','Nacht'],wxs:['klar','windig','bewölkt','Regen'],
+  lvn:['Blumenpfad','Bächlein','Pilzwiese','Windiger Hügel','Gewitterpass','Dämmerwald','Glühwürmchenhain','Kristallbrücke','Weg zum Schloss','Schattenschloss',
+    'Schneepfad','Eisbach','Eiszapfen','Flug über den Schneesturm','Eisgipfel','Höhleneingang','Kristallhalle','Leuchtpilze','Flug über den unterirdischen See','Herz des Berges',
+    'Wolkenstufen','Regenbogenbrücke','Windinseln','Flug durch die Wolken','Gewitterthron','Sternenpfad','Mondhügel','Kometenschweif','Flug durch den Nebel','Schwarzer Stern'],
+  boss:{5:'Gewitterwolke Brummbär',10:'Drache Finsternis',15:'Eisriese Frost',20:'Steingolem Rumpel',25:'Sturmvogel Wirbel',30:'Schattenkönigin Nokta'},
+  mapn:['Tal','Berge & Höhlen','Himmel']
+}};
+let LANG=(()=>{try{const l=localStorage.getItem(LKEY);if(LANGS.includes(l))return l;}catch(e){}
+  const nav=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||''];
+  for(const x of nav){const c=String(x||'').toLowerCase().slice(0,2);if(LANGS.includes(c))return c;}
+  return 'en';})();
+const tt=(k,...a)=>{let v=I18N[LANG][k];if(v===undefined)v=I18N.ru[k];return typeof v==='function'?v(...a):v;};
+const defNames=id=>{const i=UNIS.findIndex(u=>u.id===id);return i<0?[]:LANGS.map(l=>(I18N[l].unis||[])[i]).filter(Boolean).map(x=>x[0]);};
+function captureRu(){const R=I18N.ru,c1=a=>a.map(x=>x[1]),c2=a=>a.map(x=>x[2]);
+  R.girls=GIRLS.map(g=>[g.name,g.trait]);R.outfits=OUTFITS.map(o=>o.name);R.unis=UNIS.map(u=>[u.name,u.magic]);
+  R.horns=c1(HORNS);R.manes=c1(MANES);R.tails=c1(TAILS);R.heads=c1(HEADS);R.necks=c1(NECKS);R.backs=c1(BACKS);R.feet=c1(FEET);R.trails=c1(TRAILS);R.mcols=c1(MCOLS);
+  R.foods=c2(FOODS);R.tools=c2(TOOLS);R.titles=Object.assign({},TITLES);R.meters=c2(METERS);
+  R.hats=c1(HATS);R.gbacks=c1(GBACKS);R.wands=c1(WANDS);R.gstyles=c1(GSTYLES);R.gcols=c1(GCOLS);R.htabs=c2(HTABS);
+  R.cats=CATS.map(c=>[c.name,c.trait]);R.catlv=CAT_LV.slice();R.magics={};for(const k in MAGIC)R.magics[k]=[MAGIC[k].n,MAGIC[k].d];
+  R.medalList=MEDALS.map(m=>[m[1],m[2]]);R.phases=PHASES.map(p=>p.n);R.wxs=WXS.map(w=>w.n);R.lvn=LVN.slice();
+  R.boss={};for(const k in BOSS)R.boss[k]=BOSS[k].n;R.mapn=MAPN.slice();}
+function applyData(){const D=I18N[LANG],R=I18N.ru,g=k=>D[k]||R[k];
+  const s1=(a,k)=>a.forEach((x,i)=>x[1]=g(k)[i]),s2=(a,k)=>a.forEach((x,i)=>x[2]=g(k)[i]),rep=(a,k)=>a.splice(0,a.length,...g(k));
+  GIRLS.forEach((x,i)=>{x.name=g('girls')[i][0];x.trait=g('girls')[i][1];});OUTFITS.forEach((x,i)=>x.name=g('outfits')[i]);
+  UNIS.forEach((x,i)=>{x.name=g('unis')[i][0];x.magic=g('unis')[i][1];});
+  s1(HORNS,'horns');s1(MANES,'manes');s1(TAILS,'tails');s1(HEADS,'heads');s1(NECKS,'necks');s1(BACKS,'backs');s1(FEET,'feet');s1(TRAILS,'trails');s1(MCOLS,'mcols');
+  s2(FOODS,'foods');s2(TOOLS,'tools');Object.assign(TITLES,g('titles'));s2(METERS,'meters');
+  s1(HATS,'hats');s1(GBACKS,'gbacks');s1(WANDS,'wands');s1(GSTYLES,'gstyles');s1(GCOLS,'gcols');s2(HTABS,'htabs');
+  CATS.forEach((x,i)=>{x.name=g('cats')[i][0];x.trait=g('cats')[i][1];});rep(CAT_LV,'catlv');
+  for(const k in MAGIC){MAGIC[k].n=g('magics')[k][0];MAGIC[k].d=g('magics')[k][1];}
+  MEDALS.forEach((m,i)=>{m[1]=g('medalList')[i][0];m[2]=g('medalList')[i][1];});
+  PHASES.forEach((p,i)=>p.n=g('phases')[i]);WXS.forEach((w,i)=>w.n=g('wxs')[i]);rep(LVN,'lvn');
+  for(const k in BOSS)BOSS[k].n=g('boss')[k];rep(MAPN,'mapn');}
+function applyStatic(){
+  document.documentElement.lang=LANG;document.title=tt('app');
+  $$('[data-i18n]').forEach(e=>e.textContent=tt(e.dataset.i18n));
+  $$('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',tt(e.dataset.i18nAria)));
+  $('#langCur').textContent=LANG.toUpperCase();$('#btnLang').setAttribute('aria-label',tt('lang')+': '+LANG.toUpperCase());$('#btnLang').title=tt('lang');
+  $$('#langMenu [data-l]').forEach(b=>b.setAttribute('aria-checked',b.dataset.l===LANG));}
+
 
 /* ---------- data ---------- */
 const GIRLS=[
@@ -597,7 +838,7 @@ if(!Array.isArray(S.medals))S.medals=[];if(!S.ch||typeof S.ch!=='object')S.ch={}
 const save=()=>{try{medalCheck();}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const girl=()=>{const g=GIRLS.find(g=>g.id===S.girl)||GIRLS[0];return Object.assign({},g,{style:S.gstyle||g.style,hair:S.gcol||g.hair,hat:S.hat,gback:S.gback,wand:S.wand});};
 const uni=()=>UNIS.find(u=>u.id===S.uni)||UNIS[0];
-const uname=()=>S.name||uni().name;
+const uname=()=>(!S.name||defNames(S.uni).includes(S.name))?uni().name:S.name;
 const dirtLevel=()=>clamp((72-S.stats.clean)/72,0,1);
 const uniOpts=x=>Object.assign({u:uni(),horn:S.horn,mane:S.mane,tail:S.tail,head:S.head,neck:S.neck,back:S.back,feet:S.feet,mcol:S.mcol,dirt:dirtLevel()},x||{});
 function bump(k,d){S.stats[k]=clamp(S.stats[k]+d,0,100)}
@@ -788,12 +1029,12 @@ let cur='title',upFrom='hub';
 function go(name){
   if(cur==='track')trackStop();
   if(cur==='level')levelStop();
-  const prev=cur;cur=name;
+  const prev=cur;cur=name;document.body.dataset.scr=name;
   if(name==='map'){if(prev==='level')mapPage=Math.floor((L.n-1)/10);else if(prev==='hub')mapAuto();}
   $$('.screen').forEach(s=>s.classList.toggle('on',s.dataset.screen===name));
   const inGame=['hub','stable','house','track','map','level','up'].includes(name),back=$('#btnBack');
   back.hidden=!inGame||name==='hub';
-  back.textContent=name==='level'||(name==='up'&&upFrom==='map')?'‹ На карту':'‹ Во двор';
+  back.textContent=name==='level'||(name==='up'&&upFrom==='map')?tt('back.map'):tt('back.yard');
   $('#meters').hidden=!['hub','stable','house','track'].includes(name);
   $('#starBox').hidden=!inGame;$('#ptBox').hidden=!inGame;$('#skyChip').hidden=!inGame;
   $('#ttl').textContent=name==='level'?`${L.n}. ${LVN[L.n-1]}`:TITLES[name];
@@ -811,19 +1052,19 @@ function updMeters(){
 let toastT=0;
 function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2200);}
 $('#btnBack').onclick=()=>{sfx.tap();go(cur==='level'||(cur==='up'&&upFrom==='map')?'map':'hub')};
-function sndLabel(){$('#btnSnd').textContent=S.muted?'🔇':'🔊';$('#btnSnd').setAttribute('aria-label',S.muted?'Включить звук':'Выключить звук');}
+function sndLabel(){$('#btnSnd').textContent=S.muted?'🔇':'🔊';$('#btnSnd').setAttribute('aria-label',S.muted?tt('snd.on'):tt('snd.off'));}
 $('#btnSnd').onclick=()=>{S.muted=!S.muted;sndLabel();save();sfx.tap();};
 
 /* ---------- title + pick ---------- */
 function enterTitle(){
   $('#titleArt').innerHTML=uniSVG({u:UNIS[0],horn:'rainbow',mane:'loose',tail:'ribbons',head:'crown',neck:'none',back:'none'});
   $('#titleBtns').innerHTML=S.girl&&S.uni
-    ?'<button class="btn" data-a="cont">Продолжить</button><button class="btn quiet" data-a="new">Начать заново</button>'
-    :'<button class="btn" data-a="wipe">Начать игру</button>';
+    ?`<button class="btn" data-a="cont">${tt('title.cont')}</button><button class="btn quiet" data-a="new">${tt('title.new')}</button>`
+    :`<button class="btn" data-a="wipe">${tt('title.start')}</button>`;
 }
 $('#titleBtns').onclick=e=>{const b=e.target.closest('button');if(!b)return;sfx.tap();const a=b.dataset.a;
   if(a==='cont')go(S.cat?'hub':'cat');
-  else if(a==='new')$('#titleBtns').innerHTML='<p style="flex:0 0 100%;max-width:none">Начать заново? Уровни, прокачка и наряды сотрутся.</p><button class="btn" data-a="wipe">Да, начать заново</button><button class="btn quiet" data-a="back">Отмена</button>';
+  else if(a==='new')$('#titleBtns').innerHTML=`<p style="flex:0 0 100%;max-width:none">${tt('title.confirm')}</p><button class="btn" data-a="wipe">${tt('title.yes')}</button><button class="btn quiet" data-a="back">${tt('cancel')}</button>`;
   else if(a==='back')enterTitle();
   else{const m=S.muted;S=fresh();S.muted=m;save();pickG=null;pickU=null;pickC=null;go('girl');}};
 let pickG=null,pickU=null,nameTouched=false;
@@ -836,9 +1077,9 @@ $('#girlCards').onclick=e=>{const c=e.target.closest('.card');if(!c)return;pickG
   $$('#girlCards .card').forEach(x=>x.setAttribute('aria-pressed',x===c));$('#girlNext').disabled=false;};
 $('#girlNext').onclick=()=>{if(S.girl!==pickG){S.girl=pickG;S.outfit=girl().outfit;}sfx.tap();go('uni');};
 function enterUni(){
-  pickU=pickU||S.uni; nameTouched=!!S.name&&S.name!==(UNIS.find(u=>u.id===S.uni)||{}).name;
+  pickU=pickU||S.uni; nameTouched=!!S.name&&!defNames(S.uni).includes(S.name);
   $('#uniCards').innerHTML=UNIS.map(u=>`<button class="card" data-id="${u.id}" aria-pressed="${pickU===u.id}">${uniSVG({u,horn:'gold',mane:'loose',tail:'loose'})}<b>${u.name}</b><small>${u.magic}</small></button>`).join('');
-  $('#uniName').value=S.name||(pickU?UNIS.find(u=>u.id===pickU).name:'');
+  $('#uniName').value=nameTouched?S.name:(pickU?UNIS.find(u=>u.id===pickU).name:'');
   $('#uniNext').disabled=!pickU;
 }
 $('#uniCards').onclick=e=>{const c=e.target.closest('.card');if(!c)return;pickU=c.dataset.id;sfx.tap();
@@ -847,7 +1088,7 @@ $('#uniCards').onclick=e=>{const c=e.target.closest('.card');if(!c)return;pickU=
 $('#uniName').oninput=()=>{nameTouched=true};
 $('#uniBack').onclick=()=>{sfx.tap();go('girl')};
 $('#uniNext').onclick=()=>{S.uni=pickU;S.name=$('#uniName').value.trim()||uni().name;save();sfx.win();
-  if(S.cat){go('hub');toast(`${girl().name} и ${uname()} теперь подруги!`);}else{catFrom='new';go('cat');}};
+  if(S.cat){go('hub');toast(tt('friends',girl().name,uname()));}else{catFrom='new';go('cat');}};
 
 /* ---------- hub ---------- */
 const label=(x,y,t)=>{const w=t.length*12.500+36;return `<g class="lbl" transform="translate(${x} ${y})"><rect x="${-w/2}" y="-18" width="${w}" height="36" rx="18"/><text y="7" text-anchor="middle">${t}</text></g>`;};
@@ -898,16 +1139,16 @@ function enterHub(){
     </g>
     <rect class="f-grass1" x="-3000" y="322" width="7000" height="4000"/>
     <g class="f-grass2" opacity=".55"><ellipse cx="120" cy="470" rx="150" ry="22"/><ellipse cx="880" cy="520" rx="170" ry="26"/><ellipse cx="460" cy="820" rx="220" ry="30"/><ellipse cx="-300" cy="560" rx="200" ry="28"/><ellipse cx="1300" cy="430" rx="200" ry="28"/></g>
-    ${spot('hHouse','house','Дом',HOUSE,label(140,268,'Дом'))}
-    ${spot('hStable','stable','Конюшня',STABLE,label(140,258,'Конюшня'))}
-    ${spot('hTrack','track','Трек',TRACKART,label(250,108,'Трек'))}
-    <g id="hPals" class="spot" data-go="pals" tabindex="0" role="button" aria-label="${esc(girl().name)}, ${esc(uname())} и ${cat().name}"><g class="art" id="hPalsArt">
+    ${spot('hHouse','house',TITLES.house,HOUSE,label(140,268,TITLES.house))}
+    ${spot('hStable','stable',TITLES.stable,STABLE,label(140,258,TITLES.stable))}
+    ${spot('hTrack','track',TITLES.track,TRACKART,label(250,108,TITLES.track))}
+    <g id="hPals" class="spot" data-go="pals" tabindex="0" role="button" aria-label="${esc(tt('hub.pals',girl().name,uname(),cat().name))}"><g class="art" id="hPalsArt">
       ${uniSVG(uniOpts()).replace('<svg ','<svg x="0" y="0" width="280" height="253.3" ')}
       ${girlSVG(girl(),S.outfit,'x="246" y="38" width="105" height="212.6"')}
       ${catSVG(cat(),'x="338" y="168" width="90" height="72"')}
     </g></g>
-    ${spot('hCrystal','up','Прокачка',CRYSTAL,label(60,172,'Прокачка'))}
-    ${spot('hPortal','map','Карта приключений',PORTAL,label(65,172,'Карта'))}
+    ${spot('hCrystal','up',tt('up'),CRYSTAL,label(60,172,tt('up')))}
+    ${spot('hPortal','map',tt('hub.map'),PORTAL,label(65,172,tt('hub.mapLbl')))}
   </svg>`;
   layoutHub();
 }
@@ -924,7 +1165,7 @@ function layoutHub(){
 }
 function hubAct(e){const s=e.target.closest('.spot');if(!s)return;sfx.tap();
   if(s.dataset.go==='pals'){const a=$('#hPalsArt');a.classList.remove('hop');void a.getBoundingClientRect();a.classList.add('hop');
-    $('#hPals .uni').classList.add('joy');setTimeout(()=>{const u=$('#hPals .uni');u&&u.classList.remove('joy')},900);toast(pick([`${uname()} рада тебя видеть!`,'Куда пойдём сегодня?',`${uname()} хочет играть!`]));}
+    $('#hPals .uni').classList.add('joy');setTimeout(()=>{const u=$('#hPals .uni');u&&u.classList.remove('joy')},900);toast(pick(tt('hub.hi',uname())));}
   else{if(s.dataset.go==='up')upFrom='hub';go(s.dataset.go);}}
 $('#hub').addEventListener('click',hubAct);
 $('#hub').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();hubAct(e);}});
@@ -955,17 +1196,17 @@ const chips=(k,list)=>list.map(o=>{const key=k+':'+o[0];return `<button class="c
 function setTool(t){
   tool=t; $$('#stTools .tool').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===t));
   const o=$('#stOpts'); $('#sponge').style.display='none';
-  if(t==='pet')o.innerHTML=`<span class="hint">Води пальцем или мышкой по единорогу — ${esc(uname())} любит, когда её гладят.</span>`;
-  else if(t==='wash')o.innerHTML='<span class="hint">Зажми и три губкой по единорогу, пока пятна не исчезнут.</span>';
+  if(t==='pet')o.innerHTML=`<span class="hint">${tt('st.pet',esc(uname()))}</span>`;
+  else if(t==='wash')o.innerHTML=`<span class="hint">${tt('st.wash')}</span>`;
   else if(t==='feed')o.innerHTML=FOODS.map(f=>`<button class="food" data-food="${f[0]}"><i>${f[1]}</i>${f[2]}</button>`).join('');
-  else if(t==='mane')o.innerHTML=`<div class="grp">${chips('mane',MANES)}</div><div class="grp"><span>Цвет</span>${chips('mcol',MCOLS)}</div>`;
+  else if(t==='mane')o.innerHTML=`<div class="grp">${chips('mane',MANES)}</div><div class="grp"><span>${tt('st.color')}</span>${chips('mcol',MCOLS)}</div>`;
   else if(t==='tail')o.innerHTML=chips('tail',TAILS);
   else if(t==='horn')o.innerHTML=HORNS.map(h=>`<button class="sw" data-k="horn" data-v="${h[0]}" style="--c:${h[2]}" aria-label="${h[1]}" title="${h[1]}" aria-pressed="${S.horn===h[0]}">${has('horn:'+h[0])?'':'🔒'}</button>`).join('');
-  else o.innerHTML=`<div class="grp"><span>На голову</span>${chips('head',HEADS)}</div><div class="grp"><span>На шею</span>${chips('neck',NECKS)}</div><div class="grp"><span>На спину</span>${chips('back',BACKS)}</div><div class="grp"><span>Копыта</span>${chips('feet',FEET)}</div><div class="grp"><span>След</span>${chips('trail',TRAILS)}</div>`;
+  else o.innerHTML=`<div class="grp"><span>${tt('st.head')}</span>${chips('head',HEADS)}</div><div class="grp"><span>${tt('st.neck')}</span>${chips('neck',NECKS)}</div><div class="grp"><span>${tt('st.back')}</span>${chips('back',BACKS)}</div><div class="grp"><span>${tt('st.feet')}</span>${chips('feet',FEET)}</div><div class="grp"><span>${tt('st.trail')}</span>${chips('trail',TRAILS)}</div>`;
 }
 function say(t){
   const s=S.stats;
-  $('#stSay').textContent=t||(s.food<35?'Я проголодалась…':s.clean<45?'Хочу купаться!':s.energy<25?'Я устала, хочу поспать…':s.happy<50?'Погладь меня!':pick(['Побежали на трек!','Сделай мне причёску!','Ты лучшая подруга!']));
+  $('#stSay').textContent=t||(s.food<35?tt('say.hungry'):s.clean<45?tt('say.bath'):s.energy<25?tt('say.tired'):s.happy<50?tt('say.pet'):pick(tt('say.idle')));
 }
 $('#stTools').onclick=e=>{const b=e.target.closest('.tool');if(!b)return;sfx.tap();setTool(b.dataset.t);};
 $('#stOpts').onclick=e=>{
@@ -975,7 +1216,7 @@ $('#stOpts').onclick=e=>{
   S[b.dataset.k]=b.dataset.v; save(); sfx.tap(); drawStableUni(); setTool(tool);
   const r=$('#stUni svg').getBoundingClientRect(),sr=$('#stScene').getBoundingClientRect();
   for(let i=0;i<8;i++)fx('spark','✦',r.left-sr.left+rnd(.2,.9)*r.width,r.top-sr.top+rnd(.1,.8)*r.height);
-  bump('happy',2); updMeters(); say('Как красиво!');
+  bump('happy',2); updMeters(); say(tt('say.pretty'));
 };
 function fx(cls,txt,x,y){const el=document.createElement('span');el.className=cls;el.textContent=txt||'';el.style.left=x+'px';el.style.top=y+'px';
   $('#stFx').appendChild(el);el.addEventListener('animationend',()=>el.remove());}
@@ -987,7 +1228,7 @@ function feed(btn){
   setTimeout(()=>{el.remove(); if(cur!=='stable')return; const u=$('#stUni svg');u.classList.add('chew','joy');sfx.eat();setTimeout(sfx.eat,300);
     setTimeout(()=>u.classList.remove('chew','joy'),950);
     const full=S.stats.food>=100; bump('food',f[3]);bump('happy',f[4]);bump('energy',5);save();updMeters();
-    say(full?'Ой, я уже наелась!':pick(['Ням-ням!','Вкуснятина!','Спасибо!']));},640);
+    say(full?tt('say.full'):pick(tt('say.yum')));},640);
 }
 function rub(e){
   if(tool!=='pet'&&tool!=='wash')return;
@@ -996,12 +1237,12 @@ function rub(e){
   if(!el||!el.closest('#stUni svg')||el.matches('svg'))return;
   lastFx=now; const sr=$('#stScene').getBoundingClientRect(),x=e.clientX-sr.left,y=e.clientY-sr.top,u=$('#stUni svg');
   if(tool==='pet'){fx('heart',pick(['💗','💖','💕']),x+rnd(-12,12),y-10);bump('happy',1.3);u.classList.add('joy');clearTimeout(joyT);joyT=setTimeout(()=>u.classList.remove('joy'),700);
-    if(Math.random()<.35)sfx.pet(); if(S.stats.happy>=100)say('Я самая счастливая!');}
+    if(Math.random()<.35)sfx.pet(); if(S.stats.happy>=100)say(tt('say.happiest'));}
   else{fx('bub','',x+rnd(-16,16),y+rnd(-16,16));fx('bub','',x+rnd(-26,26),y+rnd(-26,26));bump('clean',1.600);
     const d=$('#stUni .dirt');d&&d.setAttribute('opacity',dirtLevel().toFixed(2)); if(Math.random()<.4)sfx.wash();
     if(S.stats.clean>=100&&!wasClean){wasClean=true;const r=u.getBoundingClientRect();
       for(let i=0;i<12;i++)fx('spark','✦',r.left-sr.left+rnd(.15,.9)*r.width,r.top-sr.top+rnd(.1,.85)*r.height);
-      S.washes=(S.washes||0)+1;sfx.trick();bump('happy',6);say('Я сияю чистотой!');}}
+      S.washes=(S.washes||0)+1;sfx.trick();bump('happy',6);say(tt('say.shiny'));}}
   updMeters();
 }
 const stScene=$('#stScene');
@@ -1048,19 +1289,20 @@ function houseDraw(){
   else if(htab==='hat')o.innerHTML=chips('hat',HATS);
   else if(htab==='gback')o.innerHTML=chips('gback',GBACKS);
   else if(htab==='wand')o.innerHTML=chips('wand',WANDS);
-  else if(htab==='gstyle')o.innerHTML=chips('gstyle',[['','Своя']].concat(GSTYLES.filter(x=>x[0]!==base.style)));
+  else if(htab==='gstyle')o.innerHTML=chips('gstyle',[['',tt('hs.own')]].concat(GSTYLES.filter(x=>x[0]!==base.style)));
   else if(htab==='gcol')o.innerHTML=GCOLS.map(c=>`<button class="sw" data-k="gcol" data-v="${c[0]}" style="--c:${c[0]||base.hair}" aria-label="${c[1]}" title="${c[1]}${has('gcol:'+c[0])?'':', '+PRICE['gcol:'+c[0]]+' ⭐'}" aria-pressed="${S.gcol===c[0]}">${lock('gcol:'+c[0])}</button>`).join('');
-  else o.innerHTML='<button class="btn" data-h="sleep">Лечь спать</button><button class="btn quiet" data-h="repick">Выбрать других героев</button><button class="btn quiet" data-h="menu">В главное меню</button>';
+  else o.innerHTML=`<button class="btn" data-h="sleep">${tt('hs.sleep')}</button><button class="btn quiet" data-h="repick">${tt('hs.repick')}</button><button class="btn quiet" data-h="menu">${tt('hs.menu')}</button><div class="grp"><span>🌐 ${tt('lang')}</span>${[['ru','Русский'],['de','Deutsch'],['en','English']].map(x=>`<button class="chip" data-lang="${x[0]}" lang="${x[0]}" aria-pressed="${LANG===x[0]}">${x[1]}</button>`).join('')}</div>`;
 }
 $('#hsTabs').onclick=e=>{const b=e.target.closest('.tool');if(!b)return;sfx.tap();htab=b.dataset.t;houseDraw();};
 $('#hsOpts').onclick=e=>{
+  const lb=e.target.closest('[data-lang]');if(lb){sfx.tap();setLang(lb.dataset.lang);return;}
   const h=e.target.closest('[data-h]');
   if(h){sfx.tap();const a=h.dataset.h;
     if(a==='sleep')houseSleep();else if(a==='repick'){pickG=S.girl;pickU=S.uni;go('girl');}else go('title');return;}
   const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k,v=b.dataset.v;
   if(!buy(k+':'+v))return;S[k]=k==='outfit'?+v:v;save();sfx.tap();houseDraw();};
 function houseSleep(){const s=$('#hsSleep');if(s.classList.contains('on'))return;s.classList.add('on');tone(520,.5,'sine',.05,.6);
-  setTimeout(()=>{S.stats.energy=100;S.clock=2;bump('happy',5);bump('food',-8);save();updMeters();s.classList.remove('on');if(cur==='house')toast(`Доброе утро! ${uname()} отдохнула и полна сил.`);},2000);}
+  setTimeout(()=>{S.stats.energy=100;S.clock=2;bump('happy',5);bump('food',-8);save();updMeters();s.classList.remove('on');if(cur==='house')toast(tt('hs.morning',uname()));},2000);}
 
 /* ---------- track ---------- */
 const FAR=`<svg width="800" height="260" viewBox="0 0 800 260"><path class="f-hill1" d="M0 260V170Q60 120 120 150Q190 60 260 140Q320 100 380 150Q450 40 530 130Q600 90 660 140Q730 110 800 170V260Z"/>
@@ -1078,8 +1320,8 @@ const OB={
   hoop:{w:60,h:140,svg:`<svg width="60" height="140" viewBox="0 0 60 140"><ellipse cx="30" cy="70" rx="22" ry="63" fill="none" stroke="url(#gRainbow)" stroke-width="10"/><ellipse cx="30" cy="70" rx="22" ry="63" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>${star(30,2,.9,'#fff6a8')}</svg>`},
   star:{w:36,h:36,svg:`<svg width="36" height="36" viewBox="-12 -12 24 24"><path d="${STAR}" fill="#ffd23c" stroke="#fff" stroke-width="1.400" stroke-linejoin="round"/></svg>`},
   puddle:{w:120,h:20,svg:`<svg width="120" height="20" viewBox="0 0 120 20"><ellipse cx="60" cy="11" rx="59" ry="9" fill="#8a5a3c"/><ellipse cx="48" cy="9" rx="30" ry="4" fill="#b07a55"/></svg>`},
-  finish:{w:130,h:250,svg:`<svg width="130" height="250" viewBox="0 0 130 250"><rect x="4" y="10" width="9" height="240" rx="4" fill="#fff"/><rect x="117" y="10" width="9" height="240" rx="4" fill="#fff"/>
-    <path d="M8 14H122V58Q65 74 8 58Z" fill="#e5489b"/><text x="65" y="46" text-anchor="middle" fill="#fff" font-family="Nunito,Trebuchet MS,sans-serif" font-weight="800" font-size="24">ФИНИШ</text>${star(8,8,1.200,'#ffe36e')}${star(122,8,1.200,'#ffe36e')}</svg>`}
+  finish:{w:130,h:250,get svg(){return `<svg width="130" height="250" viewBox="0 0 130 250"><rect x="4" y="10" width="9" height="240" rx="4" fill="#fff"/><rect x="117" y="10" width="9" height="240" rx="4" fill="#fff"/>
+    <path d="M8 14H122V58Q65 74 8 58Z" fill="#e5489b"/><text x="65" y="46" text-anchor="middle" fill="#fff" font-family="Nunito,Trebuchet MS,sans-serif" font-weight="800" font-size="24">${tt('trk.finish')}</text>${star(8,8,1.200,'#ffe36e')}${star(122,8,1.200,'#ffe36e')}</svg>`}}
 };
 const UX=70,RW=190,RH=172,RFOOT=18;
 const T={on:false,raf:0,objs:[],sc:1,W:800,H:560,gy:464};
@@ -1114,7 +1356,7 @@ function genCourse(){
   for(let i=0;i<17;i++){
     const t=i<first.length?first[i]:pick(bag);
     if(t==='fence'){mk('fence',x);mk('star',x+5,{hy:170});}
-    else if(t==='magic'){const m=mk('magic',x);mk('star',x+7,{hy:292});if(!hinted){hinted=true;m.el.insertAdjacentHTML('beforeend','<span class="tip">Прыгни два раза!</span>');}}
+    else if(t==='magic'){const m=mk('magic',x);mk('star',x+7,{hy:292});if(!hinted){hinted=true;m.el.insertAdjacentHTML('beforeend',`<span class="tip">${tt('trk.tip')}</span>`);}}
     else if(t==='hoop')mk('hoop',x,{cy:215});
     else if(t==='puddle')mk('puddle',x);
     else{mk('star',x,{hy:150});mk('star',x+100,{hy:200});mk('star',x+200,{hy:150});x+=200;}
@@ -1124,19 +1366,20 @@ function genCourse(){
   T.finish=x+150;mk('finish',T.finish);
 }
 function drawRunner(){runner.innerHTML=uniSVG(uniOpts({rider:girl(),outfit:S.outfit,shadow:false,cls:T.on?'run':'',dirt:clamp(dirtLevel()+(T.mud||0)*.3,0,1)}));}
+function trkIntroHTML(low){if(low===undefined)low=S.stats.energy<12;return low
+  ?`<h2>${esc(tt('trk.tiredH',uname()))}</h2><p>${tt('trk.tiredP')}</p><div class="row"><button class="btn" data-a="house">${tt('toHouse')}</button><button class="btn quiet" data-a="stable">${tt('toStable')}</button></div>`
+  :`<h2>${tt('trk.introH')}</h2><ul>${tt('trk.introL')}</ul><div class="row"><button class="btn" data-a="start">${tt('trk.go')}</button></div>`;}
 function enterTrack(){
   T.on=false;T.y=0;T.mud=0;T.objs=[];objsEl.innerHTML='';trkFx.innerHTML='';
   sizeTrack();drawRunner();placeRunner(0);
   $('#runStars').textContent='0';$('#runProg').style.width='0';
   const sh=$('#trkSheet'),low=S.stats.energy<12;
-  sh.innerHTML=low
-    ?`<h2>${esc(uname())} устала</h2><p>Пусть отдохнёт дома или перекусит в конюшне — и снова на трек.</p><div class="row"><button class="btn" data-a="house">В дом</button><button class="btn quiet" data-a="stable">В конюшню</button></div>`
-    :`<h2>На старт!</h2><ul><li><b>Прыжок</b> — пробел или касание экрана.</li><li><b>Два прыжка подряд</b> — высокий прыжок через волшебный барьер.</li><li><b>Трюк</b> — клавиша X: в воздухе сальто, на земле свечка.</li><li>Собирай звёзды и не наступай в лужи.</li></ul><div class="row"><button class="btn" data-a="start">Поехали</button></div>`;
+  sh.innerHTML=trkIntroHTML(low);T.intro=true;
   $('#trkOver').classList.add('on');
 }
 $('#trkSheet').onclick=e=>{const b=e.target.closest('button');if(!b)return;sfx.tap();const a=b.dataset.a;
   if(a==='start')trackStart(); else go(a);};
-function trackStart(){
+function trackStart(){T.intro=false;
   $('#trkOver').classList.remove('on');trkFx.innerHTML='';
   Object.assign(T,{dist:0,y:0,vy:0,ground:true,jumps:0,spin:-1,rear:-1,cd:0,stars:0,cleared:0,tricks:0,mud:0});
   genCourse();T.on=true;drawRunner();$('#runStars').textContent='0';
@@ -1161,10 +1404,10 @@ function step(dt){
   const prog=clamp(T.dist/T.finish,0,1);T.dist+=(360+90*prog)*(T.sf||1)*dt;
   const svg=runner.firstElementChild;
   if(!T.ground){T.vy-=2000*dt;T.y+=T.vy*dt;
-    if(T.y<=0){T.y=0;T.vy=0;T.ground=true;T.jumps=0;svg.classList.remove('air');if(T.spin>=0){T.spin=-1;pop('Почти!');}}}
+    if(T.y<=0){T.y=0;T.vy=0;T.ground=true;T.jumps=0;svg.classList.remove('air');if(T.spin>=0){T.spin=-1;pop(tt('pop.almost'));}}}
   let ang=0;
-  if(T.spin>=0){T.spin+=dt;const k=Math.min(1,T.spin/.5);ang=360*k;if(k>=1){T.spin=-1;ang=0;T.tricks++;addStars(2);pop('Сальто! +2');sfx.trick();}}
-  if(T.rear>=0){T.rear+=dt;const k=Math.min(1,T.rear/.6);ang=-24*Math.sin(Math.PI*k);if(k>=1){T.rear=-1;T.cd=1.200;T.tricks++;addStars(1);pop('Свечка! +1');sfx.trick();}}
+  if(T.spin>=0){T.spin+=dt;const k=Math.min(1,T.spin/.5);ang=360*k;if(k>=1){T.spin=-1;ang=0;T.tricks++;addStars(2);pop(tt('pop.flip'));sfx.trick();}}
+  if(T.rear>=0){T.rear+=dt;const k=Math.min(1,T.rear/.6);ang=-24*Math.sin(Math.PI*k);if(k>=1){T.rear=-1;T.cd=1.200;T.tricks++;addStars(1);pop(tt('pop.rear'));sfx.trick();}}
   if(T.cd>0)T.cd-=dt;
   placeRunner(ang);
   if(S.trail&&S.trail!=='none'){T.trT=(T.trT||0)-dt;if(T.trT<=0){T.trT=.07;trailEl(trkFx,UX+34,T.gy-T.y-rnd(40,90),-1);}}
@@ -1178,14 +1421,14 @@ function step(dt){
     o.el.style.visibility='visible';o.el.style.transform=`translate(${sx}px,${o.top}px)`;
     if(o.done)continue;
     if(o.type==='fence'||o.type==='magic'){
-      if(sx<hx1&&sx+o.w>hx0){if(T.y<o.h-18){o.done=true;o.el.classList.add('hit');pop(o.type==='magic'?'Нужно выше!':'Ой!');sfx.hit();}}
+      if(sx<hx1&&sx+o.w>hx0){if(T.y<o.h-18){o.done=true;o.el.classList.add('hit');pop(o.type==='magic'?tt('pop.higher'):tt('pop.oops'));sfx.hit();}}
       else if(sx+o.w<=hx0){o.done=true;T.cleared++;const n=o.type==='magic'?2:1;addStars(n);pop('+'+n);sfx.star();}
     }else if(o.type==='star'){
       if(Math.abs(sx+18-cx)<62&&Math.abs(o.hy-cyh)<70){o.done=true;o.el.classList.add('got');addStars(1);sfx.star();}
     }else if(o.type==='hoop'){
-      if(sx+30<cx){o.done=true;if(Math.abs(o.cy-cyh)<64){addStars(3);T.tricks++;pop('Сквозь кольцо! +3');sfx.trick();}}
+      if(sx+30<cx){o.done=true;if(Math.abs(o.cy-cyh)<64){addStars(3);T.tricks++;pop(tt('pop.ring'));sfx.trick();}}
     }else if(o.type==='puddle'){
-      if(T.y<8&&cx>sx+12&&cx<sx+o.w-12){o.done=true;T.mud++;pop('Плюх!');sfx.hit();const d=svg.querySelector('.dirt');d&&d.setAttribute('opacity',clamp(dirtLevel()+T.mud*.3,0,1).toFixed(2));}
+      if(T.y<8&&cx>sx+12&&cx<sx+o.w-12){o.done=true;T.mud++;pop(tt('pop.splash'));sfx.hit();const d=svg.querySelector('.dirt');d&&d.setAttribute('opacity',clamp(dirtLevel()+T.mud*.3,0,1).toFixed(2));}
       else if(sx+o.w<hx0)o.done=true;
     }else if(o.type==='finish'){if(sx+60<cx){o.done=true;finish();}}
   }
@@ -1194,9 +1437,9 @@ function finish(){
   trackStop();runner.firstElementChild.classList.remove('run','air');runner.firstElementChild.classList.add('joy');T.y=0;placeRunner(0);sfx.win();
   const rec=T.stars>S.best; S.stars+=T.stars;S.best=Math.max(S.best,T.stars);
   bump('energy',-14);bump('food',-10);bump('clean',-8-T.mud*14);bump('happy',Math.min(25,6+T.tricks*2));save();updMeters();
-  $('#trkSheet').innerHTML=`<h2>${rec?'Новый рекорд!':'Финиш!'}</h2><p class="big">⭐ ${T.stars}</p>
-    <ul><li>Чистых прыжков: <b>${T.cleared}</b></li><li>Трюков: <b>${T.tricks}</b></li><li>Луж: <b>${T.mud}</b>${T.mud?' — пора в конюшню мыться':''}</li><li>Рекорд: <b>${S.best}</b></li></ul>
-    <div class="row"><button class="btn" data-a="${S.stats.energy<12?'house':'start'}">${S.stats.energy<12?'Отдохнуть дома':'Ещё раз'}</button><button class="btn quiet" data-a="stable">В конюшню</button></div>`;
+  $('#trkSheet').innerHTML=`<h2>${rec?tt('trk.record'):tt('trk.fin')}</h2><p class="big">⭐ ${T.stars}</p>
+    <ul><li>${tt('trk.clean')}: <b>${T.cleared}</b></li><li>${tt('trk.tricks')}: <b>${T.tricks}</b></li><li>${tt('trk.mud')}: <b>${T.mud}</b>${T.mud?tt('trk.mudHint'):''}</li><li>${tt('trk.best')}: <b>${S.best}</b></li></ul>
+    <div class="row"><button class="btn" data-a="${S.stats.energy<12?'house':'start'}">${S.stats.energy<12?tt('trk.rest'):tt('trk.again')}</button><button class="btn quiet" data-a="stable">${tt('toStable')}</button></div>`;
   $('#trkOver').classList.add('on');
 }
 $('#trkView').addEventListener('pointerdown',e=>{if(e.target.closest('button,.over'))return;jump();});
@@ -1219,8 +1462,8 @@ const has=k=>!PRICE[k]||S.owned.includes(k);
 function buy(k){
   if(has(k))return true;
   const c=PRICE[k];
-  if(S.stars<c){toast(`Нужно ${c} ⭐. Звёзды собирают на треке и на уровнях.`);sfx.hit();return false;}
-  S.stars-=c;S.owned.push(k);toast(`Открыто за ${c} ⭐`);sfx.trick();updMeters();return true;
+  if(S.stars<c){toast(tt('shop.need',c));sfx.hit();return false;}
+  S.stars-=c;S.owned.push(k);toast(tt('shop.got',c));sfx.trick();updMeters();return true;
 }
 ['head','neck','back','horn'].forEach(k=>{const key=k+':'+S[k];if(PRICE[key]&&!S.owned.includes(key))S.owned.push(key);});
 if(PRICE['outfit:'+S.outfit]&&!S.owned.includes('outfit:'+S.outfit))S.owned.push('outfit:'+S.outfit);
@@ -1263,7 +1506,7 @@ function enterCat(){
 $('#catCards').onclick=e=>{const c=e.target.closest('.card');if(!c)return;pickC=c.dataset.id;sfx.tap();
   $$('#catCards .card').forEach(x=>x.setAttribute('aria-pressed',x===c));$('#catNext').disabled=false;};
 $('#catNext').onclick=()=>{S.cat=pickC;save();sfx.win();
-  if(catFrom==='up'){catFrom='new';go('up');}else{go('hub');toast(`${cat().name} теперь твой помощник!`);}};
+  if(catFrom==='up'){catFrom='new';go('up');}else{go('hub');toast(tt('cat.toast',cat().name));}};
 
 /* ---------- upgrades ---------- */
 const COST={cat:[30,60,100,150],pow:[40,80,130,190],spd:[30,60,100,150],life:[50,100,160],mag:[40,90,150],claw:[60,120,200],ram:[70,130,200],j3:[180]};
@@ -1291,41 +1534,41 @@ const MEDALS=[
 ];
 function medalCheck(){
   if(!S.girl||!S.uni)return;
-  for(const m of MEDALS)if(!S.medals.includes(m[0])&&m[3]()){S.medals.push(m[0]);S.stars+=10;toast(`Медаль «${m[1]}»! +10 ⭐`);sfx.win();updMeters();}
+  for(const m of MEDALS)if(!S.medals.includes(m[0])&&m[3]()){S.medals.push(m[0]);S.stars+=10;toast(tt('medal.toast',m[1]));sfx.win();updMeters();}
 }
 function enterUp(){
   const c=cat();
-  const bt=(key,idx,lab)=>idx<COST[key].length?`<button class="btn sm${S.pts<COST[key][idx]?' off':''}" data-up="${key}">${lab} за ${COST[key][idx]} 💎</button>`:'<b>Максимум</b>';
+  const bt=(key,idx,lab)=>idx<COST[key].length?`<button class="btn sm${S.pts<COST[key][idx]?' off':''}" data-up="${key}">${tt('up.for',lab,COST[key][idx])}</button>`:`<b>${tt('up.max')}</b>`;
   $('#upPts').textContent=S.pts;
   $('#upCards').innerHTML=`
   <div class="ucard">${catSVG(c)}<h3>${c.name}</h3>
-    <div class="urow"><div>Уровень кота <span class="pips">${pips(S.catLv,5)}</span></div>${bt('cat',S.catLv-1,'Улучшить')}</div>
-    <ul class="ulist">${CAT_LV.map((t,i)=>`<li class="${i<S.catLv?'got':''}">${i<S.catLv?'✓':'○'} Уровень ${i+1}: ${t}</li>`).join('')}</ul>
-    <div class="urow"><div>Магнит <span class="pips">${pips(S.mag,3)}</span><small>кот притягивает звёзды издалека</small></div>${bt('mag',S.mag,'Усилить')}</div>
-    <div class="urow"><div>Когти <span class="pips">${pips(S.claw,3)}</span><small>кот сам бьёт злючек рядом</small></div>${bt('claw',S.claw,S.claw?'Усилить':'Научить')}</div>
-    <button class="chip" data-up="swapcat">Выбрать другого кота</button></div>
+    <div class="urow"><div>${tt('up.catLv')} <span class="pips">${pips(S.catLv,5)}</span></div>${bt('cat',S.catLv-1,tt('up.improve'))}</div>
+    <ul class="ulist">${CAT_LV.map((t,i)=>`<li class="${i<S.catLv?'got':''}">${i<S.catLv?'✓':'○'} ${tt('up.lvl',i+1,t)}</li>`).join('')}</ul>
+    <div class="urow"><div>${tt('up.magnet')} <span class="pips">${pips(S.mag,3)}</span><small>${tt('up.magnetD')}</small></div>${bt('mag',S.mag,tt('up.boost'))}</div>
+    <div class="urow"><div>${tt('up.claws')} <span class="pips">${pips(S.claw,3)}</span><small>${tt('up.clawsD')}</small></div>${bt('claw',S.claw,S.claw?tt('up.boost'):tt('up.teach'))}</div>
+    <button class="chip" data-up="swapcat">${tt('up.swapcat')}</button></div>
   <div class="ucard">${girlSVG(girl(),S.outfit)}<h3>${girl().name}</h3>
-    <div class="urow"><div>Сила магии <span class="pips">${pips(S.pow,5)}</span><small>каждый уровень — выстрел сильнее</small></div>${bt('pow',S.pow-1,'Усилить')}</div>
+    <div class="urow"><div>${tt('up.power')} <span class="pips">${pips(S.pow,5)}</span><small>${tt('up.powerD')}</small></div>${bt('pow',S.pow-1,tt('up.boost'))}</div>
     ${Object.keys(MAGIC).map(k=>{const m=MAGIC[k],own=S.magic.includes(k);
       return `<div class="urow"><div>${m.i} ${m.n}<small>${m.d}</small></div>${own
-        ?`<button class="chip" data-up="use:${k}" aria-pressed="${S.curMagic===k}">${S.curMagic===k?'Выбрана':'Выбрать'}</button>`
-        :`<button class="btn sm${S.pts<m.cost?' off':''}" data-up="buy:${k}">Открыть за ${m.cost} 💎</button>`}</div>`;}).join('')}</div>
+        ?`<button class="chip" data-up="use:${k}" aria-pressed="${S.curMagic===k}">${S.curMagic===k?tt('up.chosen'):tt('up.choose')}</button>`
+        :`<button class="btn sm${S.pts<m.cost?' off':''}" data-up="buy:${k}">${tt('up.unlock',m.cost)}</button>`}</div>`;}).join('')}</div>
   <div class="ucard">${uniSVG(uniOpts())}<h3>${esc(uname())}</h3>
-    <div class="urow"><div>Скорость <span class="pips">${pips(S.spd,5)}</span><small>быстрее бежит на уровнях</small></div>${bt('spd',S.spd-1,'Ускорить')}</div>
-    <div class="urow"><div>Жизни <span class="pips">${'♥'.repeat(2+S.life)}</span><small>сколько ударов выдержит</small></div>${bt('life',S.life-1,'Добавить')}</div>
-    <div class="urow"><div>Таран <span class="pips">${pips(S.ram,3)}</span><small>рывок сбивает злючек и чаще готов</small></div>${bt('ram',S.ram,S.ram?'Усилить':'Научить')}</div>
-    <div class="urow"><div>Третий прыжок<small>ещё один прыжок в воздухе</small></div>${S.j3?'<b>Есть</b>':bt('j3',0,'Научить')}</div></div>`;
+    <div class="urow"><div>${tt('up.speed')} <span class="pips">${pips(S.spd,5)}</span><small>${tt('up.speedD')}</small></div>${bt('spd',S.spd-1,tt('up.faster'))}</div>
+    <div class="urow"><div>${tt('up.lives')} <span class="pips">${'♥'.repeat(2+S.life)}</span><small>${tt('up.livesD')}</small></div>${bt('life',S.life-1,tt('up.add'))}</div>
+    <div class="urow"><div>${tt('up.ram')} <span class="pips">${pips(S.ram,3)}</span><small>${tt('up.ramD')}</small></div>${bt('ram',S.ram,S.ram?tt('up.boost'):tt('up.teach'))}</div>
+    <div class="urow"><div>${tt('up.j3')}<small>${tt('up.j3D')}</small></div>${S.j3?`<b>${tt('up.has')}</b>`:bt('j3',0,tt('up.teach'))}</div></div>`;
   $('#upMedals').innerHTML=MEDALS.map(m=>{const got=S.medals.includes(m[0]);return `<div class="medal${got?' got':''}"><i>${got?'🏅':'🔒'}</i><b>${m[1]}</b><small>${m[2]}</small></div>`;}).join('');
-  $('#upMedN').textContent=`${S.medals.length} из ${MEDALS.length}`;
+  $('#upMedN').textContent=tt('up.medN',S.medals.length,MEDALS.length);
 }
 $('#upCards').onclick=e=>{const b=e.target.closest('[data-up]');if(!b)return;const a=b.dataset.up;
-  const pay=n=>{if(S.pts<n){toast(`Не хватает очков: нужно ${n} 💎. Их дают за уровни на карте.`);sfx.hit();return false;}S.pts-=n;sfx.trick();return true;};
+  const pay=n=>{if(S.pts<n){toast(tt('up.lack',n));sfx.hit();return false;}S.pts-=n;sfx.trick();return true;};
   if(a==='swapcat'){catFrom='up';pickC=S.cat;go('cat');return;}
-  if(a==='cat'){if(pay(COST.cat[S.catLv-1])){S.catLv++;toast(`${cat().name}: уровень ${S.catLv}`);}}
+  if(a==='cat'){if(pay(COST.cat[S.catLv-1])){S.catLv++;toast(tt('up.catTo',cat().name,S.catLv));}}
   else if(a==='pow'||a==='spd'||a==='life'){if(pay(COST[a][S[a]-1]))S[a]++;}
   else if(a==='mag'||a==='claw'||a==='ram'){if(pay(COST[a][S[a]]))S[a]++;}
-  else if(a==='j3'){if(pay(COST.j3[0])){S.j3=true;toast('Теперь в воздухе можно прыгнуть трижды');}}
-  else if(a.startsWith('buy:')){const k=a.slice(4);if(pay(MAGIC[k].cost)){S.magic.push(k);S.curMagic=k;toast(`Открыта магия: ${MAGIC[k].n}`);}}
+  else if(a==='j3'){if(pay(COST.j3[0])){S.j3=true;toast(tt('up.j3T'));}}
+  else if(a.startsWith('buy:')){const k=a.slice(4);if(pay(MAGIC[k].cost)){S.magic.push(k);S.curMagic=k;toast(tt('up.magT',MAGIC[k].n));}}
   else if(a.startsWith('use:')){S.curMagic=a.slice(4);sfx.tap();}
   save();updMeters();enterUp();};
 
@@ -1411,7 +1654,7 @@ function enterMap(){
   let d='',nodes='',deco='';
   for(let i=0;i<10;i++){const p=pos(i);d+=(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0);}
   for(let i=0;i<10;i++){const n=base+i+1,p=pos(i),r=S.lv[n]||0,open=lvOpen(n),b=BOSS[n],R=b?38:30,cls=r?'done':open?'open':'lock';
-    nodes+=`<g class="node ${cls}" data-n="${n}" tabindex="0" role="button" aria-label="Уровень ${n}: ${LVN[n-1]}" transform="translate(${p[0].toFixed(0)} ${p[1].toFixed(0)})">
+    nodes+=`<g class="node ${cls}" data-n="${n}" tabindex="0" role="button" aria-label="${esc(tt('map.lvl',n,LVN[n-1]))}" transform="translate(${p[0].toFixed(0)} ${p[1].toFixed(0)})">
       ${cls==='open'?`<circle class="ring" r="${R}" fill="none" stroke="#fff" stroke-width="5"/>`:''}
       <circle class="c" r="${R}"/><text y="9">${cls==='lock'?'🔒':n}</text>
       ${b?`<text y="${-R-8}">${b.ic}</text>`:FLY.includes(n)?`<text y="${-R-8}">☁️</text>`:''}
@@ -1432,17 +1675,17 @@ function enterMap(){
     <g transform="translate(${(p9[0]+4).toFixed(0)} ${(p9[1]-272).toFixed(0)}) scale(.72)">${CASTLE}</g>`:''}
     ${nodes}
   </svg>`;
-  $('#mapName').textContent=`${MAPN[mapPage]}: уровни ${base+1}–${base+10}`;
+  $('#mapName').textContent=tt('map.name',MAPN[mapPage],base+1,base+10);
   $('#mapPrev').disabled=mapPage===0;$('#mapNext').disabled=mapPage===2;
   $('#mapOver').classList.remove('on');
 }
 function mapAct(e){const g=e.target.closest('.node');if(!g)return;const n=+g.dataset.n;sfx.tap();
-  if(!lvOpen(n)){toast(`Сначала пройди уровень ${n-1}`);return;}
+  if(!lvOpen(n)){toast(tt('map.first',n-1));return;}
   const r=S.lv[n]||0,b=BOSS[n];
-  $('#mapSheet').innerHTML=`<h2>${n}. ${LVN[n-1]}</h2>${b?`<p>В конце ждёт ${b.n}.</p>`:FLY.includes(n)?'<p>Этот уровень — полёт на крыльях.</p>':''}
+  $('#mapSheet').innerHTML=`<h2>${n}. ${LVN[n-1]}</h2>${b?`<p>${tt('map.boss',b.n)}</p>`:FLY.includes(n)?`<p>${tt('map.fly')}</p>`:''}
     ${r?`<p class="big">${'★'.repeat(r)}${'☆'.repeat(3-r)}</p>`:''}
-    <ul><li>★ дойти до волшебных ворот</li><li>★ найти сундук</li><li>★ не потерять ни одной жизни</li></ul>
-    <div class="row"><button class="btn" data-a="play" data-n="${n}">Играть</button><button class="btn quiet" data-a="close">Закрыть</button></div>`;
+    <ul>${tt('map.goals')}</ul>
+    <div class="row"><button class="btn" data-a="play" data-n="${n}">${tt('play')}</button><button class="btn quiet" data-a="close">${tt('close')}</button></div>`;
   $('#mapOver').classList.add('on');}
 $('#mapPrev').onclick=()=>{if(mapPage>0){mapPage--;sfx.tap();enterMap();}};
 $('#mapNext').onclick=()=>{if(mapPage<2){mapPage++;sfx.tap();enterMap();}};
@@ -1564,7 +1807,7 @@ function lvBuild(n){
   if(S.catLv>=4)L.pEl.classList.add('shield');
   if(d.fly)L.pEl.querySelector('svg').classList.add('air');
   $('#lvBoss').hidden=true;$('#lvView').className='w'+d.w+(d.fly?' aero':'');
-  $('#lvPad').classList.toggle('aero',d.fly);$('#lvPad button[data-k="jump"]').textContent=d.fly?'Магия':'Прыжок';
+  $('#lvPad').classList.toggle('aero',d.fly);$('#lvPad button[data-k="jump"]').textContent=d.fly?tt('magic'):tt('jump');
   wxOn=!(d.w===4||d.w===6);$('#wx').style.display=wxOn?'block':'none';
   lvHud();
 }
@@ -1591,18 +1834,15 @@ function lvHud(){const p=L.p;
   $('#lvPts').textContent=L.pts;$('#lvStars').textContent=L.stars;
   const m=MAGIC[S.curMagic]||MAGIC.spark;$('#lvMagic').textContent=m.i+' '+m.n;}
 function lvPop(txt,x,y){const el=lvAdd('pop','',x,y,0);el.textContent=txt;el.addEventListener('animationend',()=>el.remove());}
+function lvIntroHTML(){const b=BOSS[L.n],d=L.d;return `<h2>${L.n}. ${LVN[L.n-1]}</h2>${b?`<p>${tt('lv.boss',b.n)}</p>`:''}<ul>${d.fly?tt('lv.fly',esc(uname())):tt('lv.run')}</ul>`
+  +`<div class="row"><button class="btn" data-a="start">${tt('lv.go')}</button><button class="btn quiet" data-a="map">${tt('toMap')}</button></div>`;}
 function enterLevel(){
   L.on=false;cancelAnimationFrame(L.raf);lvBuild(L.n);lvSize();
   const b=BOSS[L.n],d=L.d;
-  $('#lvSheet').innerHTML=`<h2>${L.n}. ${LVN[L.n-1]}</h2>${b?`<p>В конце уровня ждёт ${b.n}. Расколдуй его магией.</p>`:''}`+(d.fly
-    ?`<ul><li>Это полёт: ${esc(uname())} летит сама, а ты ведёшь её <b>стрелками</b> или A, D, W, S во все стороны.</li><li><b>Магия</b> — пробел или X, <b>рывок</b> — Shift.</li><li>На телефоне — круглый джойстик и кнопки внизу экрана.</li><li>Злючек лучше облетать или расколдовывать издалека.</li></ul>`
-    :`<ul><li><b>Бежать</b> — стрелки влево и вправо или A и D.</li><li><b>Прыжок</b> — пробел, в воздухе можно прыгнуть ещё раз.</li>
-    <li><b>Магия</b> — клавиша X, <b>рывок</b> — Shift, сменить магию — Q.</li><li>На телефоне всё это — кнопки внизу экрана.</li>
-    <li>Флажок запоминает место: если жизни кончатся, можно продолжить с него.</li></ul>`)
-    +`<div class="row"><button class="btn" data-a="start">Вперёд</button><button class="btn quiet" data-a="map">На карту</button></div>`;
+  $('#lvSheet').innerHTML=lvIntroHTML();L.intro=true;
   $('#lvOver').classList.add('on');
 }
-function lvStart(){$('#lvOver').classList.remove('on');if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+function lvStart(){L.intro=false;$('#lvOver').classList.remove('on');if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   L.on=true;L.last=performance.now();cancelAnimationFrame(L.raf);L.raf=requestAnimationFrame(lvLoop);}
 function lvBank(){if(!L.d||L.banked)return;L.banked=true;if(L.pts||L.stars){S.pts+=L.pts;S.stars+=L.stars;save();updMeters();}}
 function levelStop(){L.on=false;cancelAnimationFrame(L.raf);L.keys={};lvBank();}
@@ -1642,7 +1882,7 @@ function lvDamage(e,n,type){
   if(e.boss){const b=BOSS[L.n];L.bossDead=true;L.locked=false;L.pts+=b.pts;L.gate.style.visibility='visible';
     L.eshots.forEach(s=>{s.dead=true;s.el.remove();});$('#lvBoss').hidden=true;
     L.en.forEach(m=>{if(m.minion&&!m.dead){m.dead=true;m.el.remove();}});
-    lvPop(`${b.n}: чары сняты! +${b.pts} 💎`,e.x-60,e.y+e.h+30);sfx.win();}
+    lvPop(tt('pop.bossDown',b.n,b.pts),e.x-60,e.y+e.h+30);sfx.win();}
   else{const pts=EN[e.t].pts+Math.floor(L.n/5);L.pts+=pts;S.kills=(S.kills||0)+1;lvPop('+'+pts+' 💎',e.x,e.y+e.h+16);lvPop('🦋',e.x+26,e.y+e.h+50);sfx.star();}
   lvHud();
 }
@@ -1652,12 +1892,12 @@ function lvBoom(s,x,y){
 }
 function lvHurt(fall){const p=L.p;
   if(!fall){if(p.inv>0)return;
-    if(S.catLv>=4&&L.shCd<=0){L.shCd=S.catLv>=5?12:25;L.pEl.classList.remove('shield');p.inv=1;L.pEl.classList.add('inv');lvPop('Мяу! Щит!',p.x,p.y+160);sfx.trick();return;}}
+    if(S.catLv>=4&&L.shCd<=0){L.shCd=S.catLv>=5?12:25;L.pEl.classList.remove('shield');p.inv=1;L.pEl.classList.add('inv');lvPop(tt('pop.shield'),p.x,p.y+160);sfx.trick();return;}}
   p.lives--;L.noLoss=false;sfx.hit();lvHud();
   if(p.lives<=0){lvEnd(false);return;}
   p.inv=fall?2:1.5;L.pEl.classList.add('inv');
-  if(fall){p.x=p.safeX;p.y=70;p.vx=0;p.vy=0;p.dash=0;lvPop(L.d.w>=5?'Ой!':'Плюх!',p.x,p.y+150);}
-  else{p.dash=0;if(!L.d.fly){p.vy=420;p.ground=false;p.jumps=1;p.vx=-p.face*220;}lvPop('Ой!',p.x,p.y+150);}
+  if(fall){p.x=p.safeX;p.y=70;p.vx=0;p.vy=0;p.dash=0;lvPop(L.d.w>=5?tt('pop.oops'):tt('pop.splash'),p.x,p.y+150);}
+  else{p.dash=0;if(!L.d.fly){p.vy=420;p.ground=false;p.jumps=1;p.vx=-p.face*220;}lvPop(tt('pop.oops'),p.x,p.y+150);}
 }
 function bossStep(b,dt){
   const p=L.p,a=L.d.arena,B=BP[b.t],left=a.x+50,right=a.x+a.w-b.w-50,rage=b.hp<b.max/2?1.35:1,pcx=p.x+PW/2,bcx=b.x+b.w/2;
@@ -1674,7 +1914,7 @@ function bossStep(b,dt){
         const s=B.sum==='drop'?mkEnemy({t:'drop',x:clamp(pcx-22+rnd(-60,60),a.x+30,a.x+a.w-80),y:310,hp:1})
           :mkEnemy({t:B.sum,x:clamp(bcx,a.x+40,a.x+a.w-120),y:0,x0:a.x+20,x1:a.x+a.w-90,hp,sp:B.sum==='roller'?150:95});
         s.minion=true;L.en.push(s);}}}
-    b.mt-=dt;if(b.mt<=0){b.mode='down';lvPop('Прыгай!',p.x,p.y+170);}
+    b.mt-=dt;if(b.mt<=0){b.mode='down';lvPop(tt('pop.jump'),p.x,p.y+170);}
   }else if(b.mode==='down'){b.y-=260*dt;if(b.y<=20){b.y=20;b.mode='sweep';b.dir=pcx>bcx?1:-1;}}
   else if(b.mode==='sweep'){b.x+=b.dir*(260+B.mv*.4)*rage*dt;if(b.x<=left||b.x>=right){b.x=clamp(b.x,left,right);b.mode='up';}}
   else{b.y+=240*dt;if(b.y>=150){b.mode='hover';b.mt=B.mt[0]+Math.random()*(B.mt[1]-B.mt[0]);b.dir=-b.dir;}}
@@ -1713,9 +1953,9 @@ function lvStep(dt){
     if(p.y<-300){lvHurt(true);if(!L.on)return;}
     const st=p.ground?(Math.abs(p.vx)>40?'run':''):'air';
     if(st!==L.pcls){const sv=L.pEl.querySelector('svg');sv.classList.remove('run','air');if(st)sv.classList.add(st);L.pcls=st;}
-    for(const f of L.flags){if(!f.on&&p.x+PW>f.x&&p.x<f.x+50&&p.y<130){f.on=true;f.el.classList.add('on');L.cp={x:f.x};lvPop('Флажок!',f.x-20,150);sfx.trick();}}
+    for(const f of L.flags){if(!f.on&&p.x+PW>f.x&&p.x<f.x+50&&p.y<130){f.on=true;f.el.classList.add('on');L.cp={x:f.x};lvPop(tt('pop.flag'),f.x-20,150);sfx.trick();}}
     if(d.boss&&!L.locked&&!L.bossDead&&p.x>d.arena.x+140){L.locked=true;L.cp={x:d.arena.x+60};$('#lvBoss').hidden=false;$('#lvBossName').textContent=BOSS[L.n].n;
-      $('#lvBossHp').style.width=clamp(L.boss.hp/L.boss.max*100,0,100)+'%';lvPop('Берегись!',p.x,p.y+170);}
+      $('#lvBossHp').style.width=clamp(L.boss.hp/L.boss.max*100,0,100)+'%';lvPop(tt('pop.beware'),p.x,p.y+170);}
   }
   const tx=p.x+PW/2-42-p.face*96;c.x+=(tx-c.x)*Math.min(1,dt*5);c.y+=(p.y-c.y)*Math.min(1,dt*6);c.face=tx>c.x+6?1:tx<c.x-6?-1:p.face;
   if(L.shCd>0){L.shCd-=dt;if(L.shCd<=0)L.pEl.classList.add('shield');}
@@ -1725,13 +1965,13 @@ function lvStep(dt){
     const near=Math.abs(ix-pcx)<PW/2+it.w/2&&Math.abs(iy-pcy)<66+it.h/2;
     if(it.t==='star'){if(near||Math.hypot(ix-ccx,iy-ccy)<cr){it.got=true;it.el.classList.add('got');L.stars++;sfx.star();lvHud();}}
     else if(near){it.got=true;it.el.classList.add('got');
-      if(it.t==='chest'){L.chest=true;L.pts+=25+L.n;lvPop(`Сундук! +${25+L.n} 💎`,it.x-30,it.y+90);sfx.win();}
+      if(it.t==='chest'){L.chest=true;L.pts+=25+L.n;lvPop(tt('pop.chest',25+L.n),it.x-30,it.y+90);sfx.win();}
       else if(p.lives<p.maxLives){p.lives++;lvPop('+1 ❤️',it.x,it.y+60);sfx.trick();}
       else{L.pts+=5;lvPop('+5 💎',it.x,it.y+60);sfx.star();}
       lvHud();}}
   if(S.claw>0){L.clawCd-=dt;if(L.clawCd<=0){let best=null,bd=175;
     for(const e of L.en){if(e.dead||(e.boss&&!L.locked))continue;const dd=Math.hypot(e.x+e.w/2-ccx,e.y+e.h/2-ccy)-e.w/3;if(dd<bd){bd=dd;best=e;}}
-    if(best){L.clawCd=1.1;lvBurst('spark',best.x+best.w/2,best.y+best.h/2);lvPop('Мяу!',c.x,c.y+96);lvDamage(best,S.claw,'claw');}}}
+    if(best){L.clawCd=1.1;lvBurst('spark',best.x+best.w/2,best.y+best.h/2);lvPop(tt('pop.meow'),c.x,c.y+96);lvDamage(best,S.claw,'claw');}}}
   for(const e of L.en){if(e.dead)continue;if(!e.boss&&Math.abs(e.x-p.x)>1500)continue;
     const dx=pcx-(e.x+e.w/2);
     if(e.frozen>0){e.frozen-=dt;if(e.frozen<=0)e.el.classList.remove('frozen');}
@@ -1785,11 +2025,11 @@ function lvEnd(win){
     S.pts+=L.pts+bonus;S.stars+=L.stars;L.banked=true;bump('happy',8);sfx.win();}
   bump('energy',-8);bump('food',-6);bump('clean',-6);save();updMeters();
   $('#lvSheet').innerHTML=win
-    ?`<h2>${n===NLV?'Вся страна расколдована!':n===10?'Долина расколдована!':'Уровень пройден!'}</h2><p class="big">${'★'.repeat(r)}${'☆'.repeat(3-r)}</p>
-      <ul><li>Очки: <b>+${L.pts+bonus} 💎</b></li><li>Звёзды: <b>+${L.stars} ⭐</b></li><li>${L.chest?'Сундук найден':'Сундук остался ненайденным'}</li><li>${L.noLoss?'Ни одной потерянной жизни':'Жизни терялись — третья звезда ждёт'}</li></ul>
-      <div class="row">${n<NLV?'<button class="btn" data-a="next">Следующий уровень</button>':''}<button class="btn quiet" data-a="up">Прокачка</button><button class="btn quiet" data-a="map">На карту</button></div>`
-    :`<h2>Жизни закончились</h2><p>Собранное остаётся у тебя: ${L.pts} 💎 и ${L.stars} ⭐.${L.cp?' Флажок пройден — можно продолжить с него.':''}</p>
-      <div class="row">${L.cp?'<button class="btn" data-a="cp">С флажка</button>':''}<button class="btn${L.cp?' quiet':''}" data-a="retry">Сначала</button><button class="btn quiet" data-a="up">Прокачка</button><button class="btn quiet" data-a="map">На карту</button></div>`;
+    ?`<h2>${n===NLV?tt('lv.all'):n===10?tt('lv.valley'):tt('lv.done')}</h2><p class="big">${'★'.repeat(r)}${'☆'.repeat(3-r)}</p>
+      <ul><li>${tt('lv.pts')}: <b>+${L.pts+bonus} 💎</b></li><li>${tt('lv.stars')}: <b>+${L.stars} ⭐</b></li><li>${L.chest?tt('lv.chest'):tt('lv.noChest')}</li><li>${L.noLoss?tt('lv.noLoss'):tt('lv.lost')}</li></ul>
+      <div class="row">${n<NLV?`<button class="btn" data-a="next">${tt('lv.next')}</button>`:''}<button class="btn quiet" data-a="up">${tt('up')}</button><button class="btn quiet" data-a="map">${tt('toMap')}</button></div>`
+    :`<h2>${tt('lv.over')}</h2><p>${tt('lv.kept',L.pts,L.stars)}${L.cp?tt('lv.cpHint'):''}</p>
+      <div class="row">${L.cp?`<button class="btn" data-a="cp">${tt('lv.fromCp')}</button>`:''}<button class="btn${L.cp?' quiet':''}" data-a="retry">${tt('lv.retry')}</button><button class="btn quiet" data-a="up">${tt('up')}</button><button class="btn quiet" data-a="map">${tt('toMap')}</button></div>`;
   $('#lvOver').classList.add('on');
 }
 function lvContinue(){const p=L.p;p.lives=p.maxLives;p.x=L.cp.x;p.y=0;p.vx=0;p.vy=0;p.dash=0;p.ground=true;p.jumps=0;p.safeX=p.x;p.inv=2.5;L.pEl.classList.add('inv');
@@ -1834,6 +2074,27 @@ window.addEventListener('resize',()=>{if(cur==='level')lvSize();if(cur==='map')e
 
 /* ---------- boot ---------- */
 /*DBG*/
+function setLang(l){if(!LANGS.includes(l)||l===LANG)return;LANG=l;try{localStorage.setItem(LKEY,l)}catch(e){}
+  const typed=cur==='uni'&&nameTouched?$('#uniName').value:null;
+  applyData();applyStatic();sndLabel();SKY.label='';skyTick(0);updMeters();
+  if(['title','girl','uni','cat','hub','stable','house','map','up'].includes(cur)){
+    const lvb=cur==='map'&&$('#mapOver').classList.contains('on')?$('#mapSheet [data-a=play]'):null;
+    go(cur);
+    if(typed!==null)$('#uniName').value=typed;
+    if(lvb){const nd=$(`#map .node[data-n="${lvb.dataset.n}"]`);if(nd)mapAct({target:nd});}
+  }else{
+    $('#btnBack').textContent=cur==='level'?tt('back.map'):tt('back.yard');
+    $('#ttl').textContent=cur==='level'?`${L.n}. ${LVN[L.n-1]}`:TITLES[cur];
+    if(cur==='level'){$('#lvPad button[data-k="jump"]').textContent=L.d&&L.d.fly?tt('magic'):tt('jump');lvHud();if(L.intro)$('#lvSheet').innerHTML=lvIntroHTML();}
+    if(cur==='track'&&T.intro)$('#trkSheet').innerHTML=trkIntroHTML();
+  }}
+const langMenu=$('#langMenu'),btnLang=$('#btnLang');
+const langShow=on=>{langMenu.hidden=!on;btnLang.setAttribute('aria-expanded',on);};
+btnLang.onclick=e=>{e.stopPropagation();sfx.tap();langShow(langMenu.hidden);if(!langMenu.hidden){const b=langMenu.querySelector('[aria-checked="true"]');b&&b.focus();}};
+langMenu.onclick=e=>{const b=e.target.closest('[data-l]');if(!b)return;e.stopPropagation();langShow(false);sfx.tap();setLang(b.dataset.l);btnLang.blur();};
+document.addEventListener('pointerdown',e=>{if(!langMenu.hidden&&!e.target.closest('.langsw'))langShow(false);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!langMenu.hidden){langShow(false);btnLang.focus();}},true);
+captureRu();applyData();applyStatic();
 skyTick(0);
 sndLabel();
 go('title');
